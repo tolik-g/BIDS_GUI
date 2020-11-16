@@ -1,5 +1,7 @@
 from PyQt5.QtWidgets import *
 import sys
+from directory_decider.directory_decider import DirectoryDecider
+from directory_decider.subj_mapping import SubjMapping
 
 
 class MainWindow(QMainWindow):
@@ -11,10 +13,13 @@ class MainWindow(QMainWindow):
         self.widget = QWidget()
         self.widget.setLayout(self.layout)
         self.setCentralWidget(self.widget)
+        self.setup_ui()
         self.show()
 
     def setup_ui(self):
         self.setWindowTitle('Temp Generic Main')
+        dd = DirectoryDecider()
+        self.layout.addWidget(dd, 0, 0)
 
 
 if __name__ == "__main__":
