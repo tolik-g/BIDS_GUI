@@ -11,6 +11,8 @@ class FolderMapping(QFrame):
         placeholder = QLabel('Folder mapping screen')
         self.layout.addWidget(placeholder, 0, 0)
 
-        # next screen button
+        # buttons
         self.bttn_next = QPushButton('next')
-        self.layout.addWidget(self.bttn_next, 1, 0)
+        self.bttn_back = QPushButton('back')
+        self.layout.addWidget(self.bttn_next, 1, 1)
+        self.layout.addWidget(self.bttn_back, 1, 0)
