@@ -19,7 +19,7 @@ class MainWindow(QMainWindow):
     def setup_ui(self):
         self.setWindowTitle('BIDS GUI')
         self.setWindowIcon(QtGui.QIcon('Icons/title.png'))
-        self.setMinimumSize(500, 500)
+        self.setMinimumSize(600, 600)
         self.layout.addWidget(DirectoryDecider(), 0, 0)
 
 
