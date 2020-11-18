@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import *
 import sys
 from directory_decider.directory_decider import DirectoryDecider
-from directory_decider.subj_mapping import SubjMapping
+from PyQt5 import QtGui
 
 
 class MainWindow(QMainWindow):
@@ -17,9 +17,10 @@ class MainWindow(QMainWindow):
         self.show()
 
     def setup_ui(self):
-        self.setWindowTitle('Temp Generic Main')
-        dd = DirectoryDecider()
-        self.layout.addWidget(dd, 0, 0)
+        self.setWindowTitle('BIDS GUI')
+        self.setWindowIcon(QtGui.QIcon('Icons/title.png'))
+        self.setMinimumSize(500, 500)
+        self.layout.addWidget(DirectoryDecider(), 0, 0)
 
 
 if __name__ == "__main__":

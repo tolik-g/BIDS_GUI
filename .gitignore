@@ -1,1 +1,5 @@
 /.idea/
+/shelf/
+/workspace.xml
+__pycache__/
+directory_decider/__pycache__/
