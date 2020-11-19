@@ -26,7 +26,7 @@ class BidsFolderChooser(QFrame):
         self.layout.addWidget(self.bttn_browse, 2, 0)
         self.layout.addWidget(self.bttn_next, 3, 0)
         self.bttn_browse.clicked.connect(self.open_folder)
-        # self.bttn_next.setEnabled(False)
+        self.bttn_next.setEnabled(False)
 
     def open_folder(self):
         kwargs = {'caption': 'Select Directory'}
