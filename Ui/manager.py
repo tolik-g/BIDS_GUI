@@ -1,12 +1,12 @@
 from PyQt5.QtWidgets import *
 
 from Utils.ui_utils import show_warn_message
-from directory_decider.bids_folder_chooser import BidsFolderChooser
-from directory_decider.folder_mapping import FolderMapping
-from directory_decider.subject_chooser import SubjectChooser
+from Ui.bids_folder_chooser import BidsFolderChooser
+from Ui.folder_mapping import FolderMapping
+from Ui.subject_chooser import SubjectChooser
 
 
-class DirectoryDecider(QWidget):
+class Manager(QWidget):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.data = {'subject_name': '', 'subject_last_name': ''}

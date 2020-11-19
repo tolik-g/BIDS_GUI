@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import *
 import sys
-from directory_decider.directory_decider import DirectoryDecider
+from Ui.manager import Manager
 from PyQt5 import QtGui
 
 
@@ -20,7 +20,7 @@ class MainWindow(QMainWindow):
         self.setWindowTitle('BIDS GUI')
         self.setWindowIcon(QtGui.QIcon('Icons/title.png'))
         self.setMinimumSize(600, 600)
-        self.layout.addWidget(DirectoryDecider(), 0, 0)
+        self.layout.addWidget(Manager(), 0, 0)
 
 
 if __name__ == "__main__":
