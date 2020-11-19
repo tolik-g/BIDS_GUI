@@ -12,7 +12,6 @@ class BidsFolderChooser(QFrame):
         self.layout = QGridLayout()
         self.setLayout(self.layout)
         self.bids_main_dir = None
-        self.dir_label = None
 
         # TODO center the title label
         title = QLabel('Choose main BIDS folder')
@@ -27,7 +26,7 @@ class BidsFolderChooser(QFrame):
         self.layout.addWidget(self.bttn_browse, 2, 0)
         self.layout.addWidget(self.bttn_next, 3, 0)
         self.bttn_browse.clicked.connect(self.open_folder)
-        self.bttn_next.setEnabled(False)
+        # self.bttn_next.setEnabled(False)
 
     def open_folder(self):
         kwargs = {'caption': 'Select Directory'}
@@ -41,4 +40,4 @@ class BidsFolderChooser(QFrame):
             self.bttn_next.setEnabled(True)
         else:
             self.bttn_next.setEnabled(False)
-            show_warn_message("Error", "Folder does not contain bids key file")
+            show_warn_message("Oops", "Folder does not contain bids key file")
