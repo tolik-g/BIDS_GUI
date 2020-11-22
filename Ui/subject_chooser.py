@@ -9,7 +9,7 @@ class SubjectChooser(QFrame):
         self.layout = QGridLayout()
         self.setLayout(self.layout)
 
-        title = QLabel('Please enter the subject name')
+        title = QLabel('Enter the subject name')
         self.layout.addWidget(title, 0, 0)
 
         # inputs

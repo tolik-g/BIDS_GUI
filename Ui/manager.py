@@ -49,5 +49,5 @@ class Manager(QWidget):
         if not self.bids_subject.validate_empty():
             show_warn_message("Oops", "Please fill the subject full name")
             return False
-        # TODO use bids key file utils here to get subject mapping and fill data with it
+        print('subject key folder:' + self.bids_key_file.subject_to_key(self.bids_subject))
         return True
