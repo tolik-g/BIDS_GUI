@@ -9,7 +9,7 @@ from Ui.subject_chooser import SubjectChooser
 class Manager(QWidget):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.data = {'subject_name': '', 'subject_last_name': ''}
+        self.data = {'subject_name': '', 'subject_last_name': '', 'bids_key_file': ''}
         self.layout = QVBoxLayout()
         self.setLayout(self.layout)
         self.show_bids_folder_chooser()
@@ -21,7 +21,7 @@ class Manager(QWidget):
 
     def show_bids_folder_chooser(self):
         self.clear_layout()
-        widget = BidsFolderChooser()
+        widget = BidsFolderChooser(self.bids_key_modified, self.data)
         widget.bttn_next.clicked.connect(self.show_subj_mapping)
         self.layout.addWidget(widget)
 
@@ -40,6 +40,9 @@ class Manager(QWidget):
         widget.bttn_next.clicked.connect(lambda: print('done'))
         widget.bttn_back.clicked.connect(self.show_subj_mapping)
         self.layout.addWidget(widget)
+
+    def bids_key_modified(self, path):
+        self.data['bids_key_file'] = path
 
     def subject_modified(self, value):
         self.data['subject_name'] = value[0]

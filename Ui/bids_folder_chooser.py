@@ -7,15 +7,16 @@ BIDS_KEY_FILE = "BIDS_KEYS.csv"
 
 
 class BidsFolderChooser(QFrame):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, modify_cb, state):
+        super().__init__()
         self.layout = QGridLayout()
         self.setLayout(self.layout)
+        self.modify_cb = modify_cb
         self.bids_main_dir = None
 
         # TODO center the title label
         title = QLabel('Choose main BIDS folder')
-        self.dir_label = QLabel('')
+        self.dir_label = QLabel(os.path.dirname(state['bids_key_file']))
         self.layout.addWidget(title, 0, 0)
         self.layout.addWidget(self.dir_label, 1, 0)
 
@@ -26,7 +27,7 @@ class BidsFolderChooser(QFrame):
         self.layout.addWidget(self.bttn_browse, 2, 0)
         self.layout.addWidget(self.bttn_next, 3, 0)
         self.bttn_browse.clicked.connect(self.open_folder)
-        self.bttn_next.setEnabled(False)
+        self.bttn_next.setEnabled(state['bids_key_file'] != '')
 
     def open_folder(self):
         kwargs = {'caption': 'Select Directory'}
@@ -38,6 +39,7 @@ class BidsFolderChooser(QFrame):
         file = os.path.join(self.bids_main_dir, BIDS_KEY_FILE)
         if os.path.isfile(file):
             self.bttn_next.setEnabled(True)
+            self.modify_cb(file)
         else:
             self.bttn_next.setEnabled(False)
             show_warn_message("Oops", "Folder does not contain bids key file")
