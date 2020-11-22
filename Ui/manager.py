@@ -3,8 +3,8 @@ from PyQt5.QtWidgets import *
 from Utils.bids_key_file import BidsKeyFile
 from Utils.bids_subject import BidsSubject
 from Utils.ui_utils import show_warn_message
-from Ui.bids_folder_chooser import BidsFolderChooser
-from Ui.folder_mapping import FolderMapping
+from Ui.folder_chooser import FolderChooser
+from Ui.options_chooser import OptionsChooser
 from Ui.subject_chooser import SubjectChooser
 
 
@@ -25,24 +25,24 @@ class Manager(QWidget):
 
     def show_bids_folder_chooser(self):
         self.clear_layout()
-        widget = BidsFolderChooser(self.bids_key_file)
-        widget.bttn_next.clicked.connect(self.show_subj_mapping)
+        widget = FolderChooser(self.bids_key_file)
+        widget.bttn_next.clicked.connect(self.show_subj_chooser)
         self.layout.addWidget(widget)
 
-    def show_subj_mapping(self):
+    def show_subj_chooser(self):
         self.clear_layout()
         widget = SubjectChooser(self.bids_subject)
-        widget.bttn_next.clicked.connect(self.show_folder_mapping)
+        widget.bttn_next.clicked.connect(self.show_options_chooser)
         widget.bttn_back.clicked.connect(self.show_bids_folder_chooser)
         self.layout.addWidget(widget)
 
-    def show_folder_mapping(self):
+    def show_options_chooser(self):
         if not self.subject_validate():
             return
         self.clear_layout()
-        widget = FolderMapping()
+        widget = OptionsChooser()
         widget.bttn_next.clicked.connect(lambda: print('done'))
-        widget.bttn_back.clicked.connect(self.show_subj_mapping)
+        widget.bttn_back.clicked.connect(self.show_subj_chooser)
         self.layout.addWidget(widget)
 
     def subject_validate(self):

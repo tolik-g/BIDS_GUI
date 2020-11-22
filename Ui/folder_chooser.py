@@ -7,7 +7,7 @@ from Utils.ui_utils import show_warn_message
 BIDS_KEY_FILE = "BIDS_KEYS.csv"
 
 
-class BidsFolderChooser(QFrame):
+class FolderChooser(QFrame):
     def __init__(self, key_file: BidsKeyFile):
         super().__init__()
         self.layout = QGridLayout()

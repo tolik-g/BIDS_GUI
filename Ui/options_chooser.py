@@ -1,14 +1,14 @@
 from PyQt5.QtWidgets import *
 
 
-class FolderMapping(QFrame):
+class OptionsChooser(QFrame):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.layout = QGridLayout()
         self.setLayout(self.layout)
 
         # TODO: placeholder widget, delete later
-        placeholder = QLabel('Folder mapping screen')
+        placeholder = QLabel('Choose options')
         self.layout.addWidget(placeholder, 0, 0)
 
         # buttons
