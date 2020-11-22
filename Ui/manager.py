@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import *
 
 from Utils.bids_key_file import BidsKeyFile
+from Utils.bids_options import BidsOptions
 from Utils.bids_subject import BidsSubject
 from Utils.ui_utils import show_warn_message
 from Ui.folder_chooser import FolderChooser
@@ -16,6 +17,7 @@ class Manager(QWidget):
 
         self.bids_subject = BidsSubject()
         self.bids_key_file = BidsKeyFile()
+        self.bids_options_chooser = BidsOptions()
         self.show_bids_folder_chooser()
 
     def clear_layout(self):
@@ -40,7 +42,7 @@ class Manager(QWidget):
         if not self.subject_validate():
             return
         self.clear_layout()
-        widget = OptionsChooser()
+        widget = OptionsChooser(self.bids_options_chooser)
         widget.bttn_next.clicked.connect(lambda: print('done'))
         widget.bttn_back.clicked.connect(self.show_subj_chooser)
         self.layout.addWidget(widget)

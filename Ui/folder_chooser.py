@@ -4,10 +4,10 @@ import os.path
 from Utils.bids_key_file import BidsKeyFile
 from Utils.ui_utils import show_warn_message
 
-BIDS_KEY_FILE = "BIDS_KEYS.csv"
-
 
 class FolderChooser(QFrame):
+    BIDS_KEY_FILE = "BIDS_KEYS.csv"
+
     def __init__(self, key_file: BidsKeyFile):
         super().__init__()
         self.layout = QGridLayout()
@@ -29,7 +29,7 @@ class FolderChooser(QFrame):
         self.layout.addWidget(self.bttn_browse, 2, 0)
         self.layout.addWidget(self.bttn_next, 3, 0)
         self.bttn_browse.clicked.connect(self.open_folder)
-        self.bttn_next.setEnabled(key_path != '')
+        # self.bttn_next.setEnabled(key_path != '')
 
     def open_folder(self):
         kwargs = {'caption': 'Select Directory'}
@@ -38,7 +38,7 @@ class FolderChooser(QFrame):
         self.validate_key_file_exist()
 
     def validate_key_file_exist(self):
-        file = os.path.join(self.bids_main_dir, BIDS_KEY_FILE)
+        file = os.path.join(self.bids_main_dir, FolderChooser.BIDS_KEY_FILE)
         if os.path.isfile(file):
             self.bttn_next.setEnabled(True)
             self.key_file.set_file(file)

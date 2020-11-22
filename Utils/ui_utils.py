@@ -1,4 +1,6 @@
-from PyQt5.QtWidgets import QMessageBox
+from PyQt5.QtWidgets import QMessageBox, QComboBox, QLabel
+
+from Utils.bids_options import BidsOptions
 
 
 def show_warn_message(title, text):
@@ -7,3 +9,14 @@ def show_warn_message(title, text):
     msg.setText(text)
     msg.setWindowTitle(title)
     msg.exec_()
+
+
+def create_drop_down_option(key: str, options: BidsOptions):
+    label = QLabel(key)
+    box = QComboBox()
+    box.addItems(options.options[key])
+    box.setCurrentIndex(options.get_selected(key))
+    box.currentIndexChanged.connect(lambda index: options.set_selected(key, index))
+
+    return label, box
+
