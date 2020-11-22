@@ -26,7 +26,7 @@ class FolderChooser(QFrame):
 
         self.dir_label = QLineEdit(os.path.dirname(key_path))
         self.dir_label.setReadOnly(True)
-        self.dir_label.setFixedWidth(300)
+        self.dir_label.setFixedWidth(400)
         self.bttn_browse = QPushButton('browse')
         self.bttn_browse.clicked.connect(self.open_folder)
         title = QLabel('Choose main BIDS folder')
