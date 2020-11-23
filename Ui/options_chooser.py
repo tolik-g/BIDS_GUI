@@ -21,6 +21,7 @@ class OptionsChooser(QFrame):
 
         # title layout setup
         title = QLabel('Choose options')
+        title.setObjectName('title')
         self.layout_title.setColumnStretch(0, 1)
         self.layout_title.setColumnStretch(2, 1)
         self.layout_title.addWidget(title, 0, 1)

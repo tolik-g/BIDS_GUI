@@ -30,6 +30,7 @@ class FolderChooser(QFrame):
         self.bttn_browse = QPushButton('browse')
         self.bttn_browse.clicked.connect(self.open_folder)
         title = QLabel('Choose main BIDS folder')
+        title.setObjectName('title')
 
         # title layout setup
         self.layout_title.setColumnStretch(0, 1)

@@ -19,14 +19,17 @@ class SubjectChooser(QFrame):
         # inputs
         self.name_edit = QLineEdit(subject.get_first_name())
         self.name_edit.setPlaceholderText('First name')
-        self.name_edit.textChanged.connect(lambda: subject.set_first_name(self.name_edit.text()))
+        self.name_edit.textChanged.connect(
+            lambda: subject.set_first_name(self.name_edit.text()))
 
         self.last_name_edit = QLineEdit(subject.get_last_name())
         self.last_name_edit.setPlaceholderText('Last name')
-        self.last_name_edit.textChanged.connect(lambda: subject.set_last_name(self.last_name_edit.text()))
+        self.last_name_edit.textChanged.connect(
+            lambda: subject.set_last_name(self.last_name_edit.text()))
 
         # title layout setup
-        title = QLabel('Enter the subject name')
+        title = QLabel("Enter the subject's name")
+        title.setObjectName('title')
         self.layout_title.setColumnStretch(0, 1)
         self.layout_title.setColumnStretch(2, 1)
         self.layout_title.addWidget(title, 0, 1)
