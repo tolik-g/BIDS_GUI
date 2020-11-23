@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import *
 
-from Utils.bids_subject import BidsSubject
+from utils.bids_subject import BidsSubject
 
 
 class SubjectChooser(QFrame):
@@ -16,17 +16,6 @@ class SubjectChooser(QFrame):
         self.layout_main.addLayout(self.layout_name)
         self.layout_main.addLayout(self.layout_navigation_bttns)
 
-        # inputs
-        self.name_edit = QLineEdit(subject.get_first_name())
-        self.name_edit.setPlaceholderText('First name')
-        self.name_edit.textChanged.connect(
-            lambda: subject.set_first_name(self.name_edit.text()))
-
-        self.last_name_edit = QLineEdit(subject.get_last_name())
-        self.last_name_edit.setPlaceholderText('Last name')
-        self.last_name_edit.textChanged.connect(
-            lambda: subject.set_last_name(self.last_name_edit.text()))
-
         # title layout setup
         title = QLabel("Enter the subject's name")
         title.setObjectName('title')
@@ -35,6 +24,15 @@ class SubjectChooser(QFrame):
         self.layout_title.addWidget(title, 0, 1)
 
         # names layout setup
+        self.name_edit = QLineEdit(subject.get_first_name())
+        self.name_edit.setPlaceholderText('First name')
+        self.name_edit.textChanged.connect(
+            lambda: subject.set_first_name(self.name_edit.text()))
+        self.last_name_edit = QLineEdit(subject.get_last_name())
+        self.last_name_edit.setPlaceholderText('Last name')
+        self.last_name_edit.textChanged.connect(
+            lambda: subject.set_last_name(self.last_name_edit.text()))
+
         self.layout_name.setColumnStretch(0, 1)
         self.layout_name.setColumnStretch(2, 1)
         self.layout_name.setRowStretch(0, 1)

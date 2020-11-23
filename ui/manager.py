@@ -1,12 +1,12 @@
 from PyQt5.QtWidgets import *
 
-from Utils.bids_key_file import BidsKeyFile
-from Utils.bids_options import BidsOptions
-from Utils.bids_subject import BidsSubject
-from Utils.ui_utils import show_warn_message
-from Ui.folder_chooser import FolderChooser
-from Ui.options_chooser import OptionsChooser
-from Ui.subject_chooser import SubjectChooser
+from utils.bids_key_file import BidsKeyFile
+from utils.bids_options import BidsOptions
+from utils.bids_subject import BidsSubject
+from utils.ui_utils import show_warn_message
+from ui.folder_chooser import FolderChooser
+from ui.options_chooser import OptionsChooser
+from ui.subject_chooser import SubjectChooser
 
 
 class Manager(QWidget):
@@ -51,5 +51,6 @@ class Manager(QWidget):
         if not self.bids_subject.validate_empty():
             show_warn_message("Oops", "Please fill the subject full name")
             return False
-        print('subject key folder:' + self.bids_key_file.subject_to_key(self.bids_subject))
+        print('subject key folder:' +
+              self.bids_key_file.subject_to_key(self.bids_subject))
         return True

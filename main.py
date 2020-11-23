@@ -1,14 +1,13 @@
 from PyQt5.QtWidgets import *
 import sys
-from Ui.manager import Manager
+from ui.manager import Manager
 from PyQt5 import QtGui
-from Utils.styles import STYLE
+from utils.styles import STYLE
 
 
 class MainWindow(QMainWindow):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
         # generic layout/widget setup for QMainWindow
         self.layout = QGridLayout()
         self.widget = QWidget()
@@ -20,11 +19,9 @@ class MainWindow(QMainWindow):
     def setup_ui(self):
         self.setStyleSheet(STYLE)
         self.setWindowTitle('BIDS GUI')
-        self.setWindowIcon(QtGui.QIcon('Icons/title.png'))
+        self.setWindowIcon(QtGui.QIcon('icons/title.png'))
         self.setMinimumSize(600, 600)
         self.layout.addWidget(Manager(), 0, 0)
-
-
 
 
 if __name__ == "__main__":

@@ -1,6 +1,6 @@
 import pandas as pd
 
-from Utils.bids_subject import BidsSubject
+from utils.bids_subject import BidsSubject
 
 
 class BidsKeyFile:

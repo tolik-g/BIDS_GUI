@@ -1,8 +1,8 @@
 from PyQt5.QtWidgets import *
 import os.path
 
-from Utils.bids_key_file import BidsKeyFile
-from Utils.ui_utils import show_warn_message
+from utils.bids_key_file import BidsKeyFile
+from utils.ui_utils import show_warn_message
 
 
 class FolderChooser(QFrame):
@@ -10,6 +10,9 @@ class FolderChooser(QFrame):
 
     def __init__(self, key_file: BidsKeyFile):
         super().__init__()
+        self.bids_main_dir = None
+        self.key_file = key_file
+
         # layouts
         self.layout_main = QVBoxLayout()
         self.layout_navigation_bttns = QGridLayout()
@@ -19,25 +22,20 @@ class FolderChooser(QFrame):
         self.layout_main.addLayout(self.layout_browse)
         self.layout_main.addLayout(self.layout_navigation_bttns)
 
-        self.bids_main_dir = None
-        self.key_file = key_file
-
-        key_path = key_file.get_file()
-
-        self.dir_label = QLineEdit(os.path.dirname(key_path))
-        self.dir_label.setReadOnly(True)
-        self.dir_label.setFixedWidth(400)
-        self.bttn_browse = QPushButton('browse')
-        self.bttn_browse.clicked.connect(self.open_folder)
+        # title layout setup
         title = QLabel('Choose main BIDS folder')
         title.setObjectName('title')
-
-        # title layout setup
         self.layout_title.setColumnStretch(0, 1)
         self.layout_title.setColumnStretch(2, 1)
         self.layout_title.addWidget(title, 0, 1)
 
         # browse layout setup
+        key_path = key_file.get_file()
+        self.dir_label = QLineEdit(os.path.dirname(key_path))
+        self.dir_label.setReadOnly(True)
+        self.dir_label.setFixedWidth(400)
+        self.bttn_browse = QPushButton('browse')
+        self.bttn_browse.clicked.connect(self.open_folder)
         self.layout_browse.setRowStretch(0, 1)
         self.layout_browse.setRowStretch(3, 1)
         self.layout_browse.setColumnStretch(0, 1)
