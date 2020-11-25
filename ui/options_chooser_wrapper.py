@@ -19,17 +19,15 @@ class OptionsChooserWrapper(QFrame):
 
         # center layout setup
         self.layout_center.setRowStretch(0, 1)
-        self.layout_center.setRowStretch(4, 1)
+        self.layout_center.setRowStretch(2, 1)
         self.layout_center.setColumnStretch(0, 1)
-        self.layout_center.setColumnStretch(1, 1)
-        self.layout_center.setColumnStretch(4, 1)
-        self.layout_center.setColumnStretch(5, 1)
+        self.layout_center.setColumnStretch(3, 1)
 
         # center layout setup
         self.bttn_file = QPushButton('File')
         self.bttn_folder = QPushButton('Folder')
-        self.layout_center.addWidget(self.bttn_file, 0, 0)
-        self.layout_center.addWidget(self.bttn_folder, 0, 2)
+        self.layout_center.addWidget(self.bttn_file, 1, 1)
+        self.layout_center.addWidget(self.bttn_folder, 1, 2)
 
         # navigation layout setup
         self.bttn_back = QPushButton('back')
