@@ -42,14 +42,10 @@ class OptionsChooser(QFrame):
         self.layout_browse.addWidget(self.dir_label, 2, 2)
 
         # dropdown layout setup
-        label1, dropdown1 = create_drop_down_option(BidsOptions.OPTION_A,
-                                                    options)
-        label2, dropdown2 = create_drop_down_option(BidsOptions.OPTION_B,
-                                                    options)
-        self.layout_dropdown.addWidget(label1, 0, 0)
-        self.layout_dropdown.addWidget(dropdown1, 0, 1)
-        self.layout_dropdown.addWidget(label2, 1, 0)
-        self.layout_dropdown.addWidget(dropdown2, 1, 1)
+        for index, key in enumerate(options.options):
+            label, dropdown = create_drop_down_option(key, options)
+            self.layout_dropdown.addWidget(label, index, 0)
+            self.layout_dropdown.addWidget(dropdown, index, 1)
 
         # center layout setup
         self.layout_center.setRowStretch(0, 1)
