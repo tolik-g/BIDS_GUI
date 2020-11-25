@@ -11,6 +11,9 @@ class BidsSubject:
     def get_last_name(self):
         return self.last_name
 
+    def get_full_name(self):
+        return self.first_name + ' ' + self.last_name
+
     def validate_empty(self):
         return self.first_name != '' and self.last_name != ''
 

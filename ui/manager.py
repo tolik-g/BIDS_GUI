@@ -23,6 +23,7 @@ class Manager(QWidget):
         self.bids_key_file = BidsKeyFile()
         self.bids_options_chooser = None
         self.show_bids_folder_chooser()
+        self.is_new_subject = None
 
     def clear_layout(self):
         for i in range(self.layout.count())[::-1]:
@@ -45,6 +46,7 @@ class Manager(QWidget):
     def show_options_chooser_wrapper(self):
         if not self.subject_validate():
             return
+
         self.clear_layout()
         widget = OptionsChooserWrapper()
         widget.bttn_folder.clicked.connect(lambda: self.show_options_chooser(BidsOptions.Type.FOLDER))
@@ -54,12 +56,13 @@ class Manager(QWidget):
 
     def show_options_chooser(self, option_type: BidsOptions.Type):
         self.clear_layout()
+        header_text = self.get_current_subject_text()
         if option_type == BidsOptions.Type.FILE:
             self.bids_options_chooser = BidsOptionsFile()
-            widget = OptionsChooserFile(self.bids_options_chooser)
+            widget = OptionsChooserFile(self.bids_options_chooser, header_text)
         else:
             self.bids_options_chooser = BidsOptionsFolder()
-            widget = OptionsChooserFolder(self.bids_options_chooser)
+            widget = OptionsChooserFolder(self.bids_options_chooser, header_text)
 
         widget.bttn_finish.clicked.connect(self.finish)
         widget.bttn_back.clicked.connect(self.show_options_chooser_wrapper)
@@ -74,6 +77,11 @@ class Manager(QWidget):
         if not self.bids_subject.validate_empty():
             show_warn_message("Oops", "Please fill the subject full name")
             return False
-        print('subject key folder:' +
-              self.bids_key_file.subject_to_key(self.bids_subject))
         return True
+
+    def get_current_subject_text(self):
+        subject_key = self.bids_key_file.subject_to_key(self.bids_subject)
+        if subject_key == '':
+            subject_key = self.bids_key_file.find_new_key()
+        self.is_new_subject = subject_key == ''
+        return subject_key + '-' + self.bids_subject.get_full_name()

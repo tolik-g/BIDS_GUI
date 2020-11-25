@@ -48,7 +48,7 @@ class FolderChooser(QFrame):
         self.bttn_next = QPushButton('next')
         self.layout_navigation_bttns.setColumnStretch(0, 1)
         self.layout_navigation_bttns.addWidget(self.bttn_next, 0, 1)
-        # self.bttn_next.setEnabled(key_path != '')
+        self.bttn_next.setEnabled(key_path != '')
 
     def open_folder(self):
         kwargs = {'caption': 'Select Directory'}
