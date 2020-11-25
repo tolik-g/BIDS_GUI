@@ -61,13 +61,14 @@ class Manager(QWidget):
             self.bids_options_chooser = BidsOptionsFolder()
             widget = OptionsChooserFolder(self.bids_options_chooser)
 
-        widget.bttn_next.clicked.connect(self.start_over)
+        widget.bttn_finish.clicked.connect(self.finish)
         widget.bttn_back.clicked.connect(self.show_options_chooser_wrapper)
         self.layout.addWidget(widget)
 
-    def start_over(self):
+    def finish(self):
         print('done -> display the user a button to start over?')
         print(self.bids_options_chooser.selected)
+        print('is valid: ' + str(self.bids_options_chooser.is_single_option_selected()))
 
     def subject_validate(self):
         if not self.bids_subject.validate_empty():

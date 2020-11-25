@@ -22,3 +22,10 @@ class BidsOptions:
 
     def set_selected(self, key, value):
         self.selected[key] = value
+
+    def is_single_option_selected(self):
+        selected_counter = 0
+        for k in self.selected:
+            if self.selected[k] > 0:
+                selected_counter += 1
+        return selected_counter == 1

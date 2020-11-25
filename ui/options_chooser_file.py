@@ -58,11 +58,11 @@ class OptionsChooserFile(QFrame):
         self.layout_center.addLayout(self.layout_dropdown, 2, 2, 1, 2)
 
         # navigation layout setup
-        self.bttn_next = QPushButton('next')
+        self.bttn_finish = QPushButton('finish')
         self.bttn_back = QPushButton('back')
         self.layout_navigation_bttns.setColumnStretch(1, 1)
         self.layout_navigation_bttns.addWidget(self.bttn_back, 0, 0)
-        self.layout_navigation_bttns.addWidget(self.bttn_next, 0, 2)
+        self.layout_navigation_bttns.addWidget(self.bttn_finish, 0, 2)
 
     def open_file(self):
         # TODO fix to choose file
