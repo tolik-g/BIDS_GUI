@@ -10,8 +10,9 @@ class DragDropArea(QFrame):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.setAcceptDrops(True)
-        self.setFrameStyle(3)
+        self.setFrameStyle(1)
         self.layout = QGridLayout()
+        self.setMinimumHeight(150)
         icon = QLabel()
         icon_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                                  '../icons/add.png')
