@@ -1,11 +1,18 @@
+from enum import Enum
+
+
 class BidsOptions:
-    # TODO rename to meaningful options, both keys and values
-    OPTION_A = "OptionA"
-    OPTION_B = "OptionB"
+    class Type(Enum):
+        FILE = 1
+        FOLDER = 2
 
     def __init__(self):
-        self.options = {BidsOptions.OPTION_A: ['A', 'B', 'C'], BidsOptions.OPTION_B: ['D', 'E', 'F']}
-        self.selected = {BidsOptions.OPTION_A: 0, BidsOptions.OPTION_B: 0}
+        self.options = {}
+        self.selected = {}
+
+    def init_selected(self):
+        for key in self.options:
+            self.selected[key] = 0
 
     def get_selected(self, key):
         try:

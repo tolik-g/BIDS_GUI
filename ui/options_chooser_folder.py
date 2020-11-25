@@ -4,7 +4,7 @@ from utils.bids_options import BidsOptions
 from utils.ui_utils import create_drop_down_option
 
 
-class OptionsChooser(QFrame):
+class OptionsChooserFolder(QFrame):
     def __init__(self, options: BidsOptions):
         super().__init__()
         # layouts
@@ -20,7 +20,7 @@ class OptionsChooser(QFrame):
         self.setLayout(self.layout_main)
 
         # title layout setup
-        title = QLabel('Choose options')
+        title = QLabel('options for a folder')
         title.setObjectName('title')
         self.layout_title.setColumnStretch(0, 1)
         self.layout_title.setColumnStretch(2, 1)
