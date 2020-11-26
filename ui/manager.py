@@ -72,6 +72,7 @@ class Manager(QWidget):
         print('done -> display the user a button to start over?')
         print(self.bids_options_chooser.selected)
         print('is valid: ' + str(self.bids_options_chooser.is_single_option_selected()))
+        print('type' + str(self.bids_options_chooser.get_type()))
 
     def subject_validate(self):
         if not self.bids_subject.validate_empty():

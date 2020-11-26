@@ -9,6 +9,10 @@ class BidsOptions:
     def __init__(self):
         self.options = {}
         self.selected = {}
+        self.option_type = None
+
+    def get_type(self):
+        return self.option_type
 
     def init_selected(self):
         for key in self.options:

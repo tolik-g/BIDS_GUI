@@ -7,3 +7,4 @@ class BidsOptionsFile(BidsOptions):
         self.options = {'demographic': ['none', 'csv', 'spss', 'excel'],
                         'fmri': ['none', 'anatomy', 'functional', 'dti']}
         self.init_selected()
+        self.option_type = BidsOptions.Type.FILE
