@@ -5,7 +5,7 @@ from utils.bids_key_file import BidsKeyFile
 from utils.ui_utils import show_warn_message
 
 
-class FolderChooser(QFrame):
+class KeyFileChooser(QFrame):
     BIDS_KEY_FILE = "BIDS_KEYS.csv"
 
     def __init__(self, key_file: BidsKeyFile):
@@ -57,7 +57,7 @@ class FolderChooser(QFrame):
         self.validate_key_file_exist()
 
     def validate_key_file_exist(self):
-        file = os.path.join(self.bids_main_dir, FolderChooser.BIDS_KEY_FILE)
+        file = os.path.join(self.bids_main_dir, KeyFileChooser.BIDS_KEY_FILE)
         if os.path.isfile(file):
             self.bttn_next.setEnabled(True)
             self.key_file.set_file(file)

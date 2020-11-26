@@ -7,7 +7,7 @@ from utils.bids_options_file import BidsOptionsFile
 from utils.bids_options_folder import BidsOptionsFolder
 from utils.bids_subject import BidsSubject
 from utils.ui_utils import show_warn_message
-from ui.folder_chooser import FolderChooser
+from ui.key_file_chooser import KeyFileChooser
 from ui.options_chooser_wrapper import OptionsChooserWrapper
 from ui.subject_chooser import SubjectChooser
 
@@ -31,7 +31,7 @@ class Manager(QWidget):
 
     def show_bids_folder_chooser(self):
         self.clear_layout()
-        widget = FolderChooser(self.bids_key_file)
+        widget = KeyFileChooser(self.bids_key_file)
         widget.bttn_next.clicked.connect(self.show_subj_chooser)
         self.layout.addWidget(widget)
 
