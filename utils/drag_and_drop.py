@@ -7,18 +7,22 @@ from PyQt5.QtCore import pyqtSignal as Signal
 class DragDropArea(QFrame):
     dropped = Signal(str)
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, title: str):
+        super().__init__()
         self.setAcceptDrops(True)
-        self.setFrameStyle(1)
+        self.setFrameStyle(2)
         self.layout = QGridLayout()
         self.setMinimumHeight(150)
+
         icon = QLabel()
         icon_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                                  '../icons/add.png')
         icon.setPixmap(QPixmap(icon_path))
 
-        self.layout.addWidget(icon, 1, 1)
+        title = QLabel('Drag & drop your %s here' % title)
+
+        self.layout.addWidget(title, 1, 1)
+        self.layout.addWidget(icon, 1, 2)
         self.layout.setColumnStretch(0, 1)
         self.layout.setColumnStretch(2, 1)
         self.layout.setRowStretch(0, 1)

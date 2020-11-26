@@ -32,7 +32,7 @@ class OptionsChooserFolder(QFrame):
         self.dir_label.setFixedWidth(400)
         self.bttn_browse = QPushButton('browse')
         self.bttn_browse.clicked.connect(self.open_folder)
-        self.drag_area = DragDropArea()
+        self.drag_area = DragDropArea('folder')
         self.drag_area.dropped.connect(self.dir_label.setText)
 
         self.layout_browse.setRowStretch(0, 1)
