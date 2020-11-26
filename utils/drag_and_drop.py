@@ -68,15 +68,13 @@ class DragDropArea(QFrame):
         self.path_modified.emit(url)
 
     def select_file(self):
-        kwargs = {'caption': 'Select Directory'}
-        url = str(QFileDialog.getExistingDirectory(**kwargs))
-        if url == '':
-            return
-        self.path_modified.emit(url)
+        kwargs = {'caption': 'Select File'}
+        url, _ = QFileDialog.getOpenFileName(**kwargs)
+        if url:
+            self.path_modified.emit(url)
 
     def select_dir(self):
         kwargs = {'caption': 'Select Directory'}
         url = str(QFileDialog.getExistingDirectory(**kwargs))
-        if url == '':
-            return
-        self.path_modified.emit(url)
+        if url:
+            self.path_modified.emit(url)
