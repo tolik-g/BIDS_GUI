@@ -4,6 +4,7 @@ from utils.bids_options import BidsOptions
 from utils.ui_utils import create_drop_down_option
 from utils.drag_and_drop import DragDropArea
 
+
 class OptionsChooserFolder(QFrame):
     def __init__(self, options: BidsOptions, header_text: str):
         super().__init__()
