@@ -1,8 +1,8 @@
 from PyQt5.QtWidgets import *
-
 from utils.bids_options import BidsOptions
 from utils.ui_utils import create_drop_down_option
 from utils.drag_and_drop import DragDropArea
+
 
 class OptionsChooserFolder(QFrame):
     def __init__(self, options: BidsOptions, header_text: str):
@@ -27,22 +27,10 @@ class OptionsChooserFolder(QFrame):
         self.layout_title.addWidget(title, 0, 1)
 
         # browse layout setup
-        self.dir_label = QLineEdit()
-        self.dir_label.setReadOnly(True)
-        self.dir_label.setFixedWidth(400)
-        self.bttn_browse = QPushButton('browse')
-        self.bttn_browse.clicked.connect(self.open_folder)
-        self.drag_area = DragDropArea('folder')
-        self.drag_area.dropped.connect(self.dir_label.setText)
-
-        self.layout_browse.setRowStretch(0, 1)
-        self.layout_browse.setRowStretch(4, 1)
+        self.drag_area = DragDropArea(title='folder')
+        self.layout_browse.addWidget(self.drag_area, 0, 1)
         self.layout_browse.setColumnStretch(0, 1)
-        self.layout_browse.setColumnStretch(3, 1)
-        self.layout_browse.addWidget(self.drag_area, 2, 1, 1, 2)
-        self.layout_browse.addLayout(self.layout_title, 1, 1, 1, 2)
-        self.layout_browse.addWidget(self.bttn_browse, 3, 1)
-        self.layout_browse.addWidget(self.dir_label, 3, 2)
+        self.layout_browse.setColumnStretch(2, 1)
 
         # dropdown layout setup
         for index, key in enumerate(options.options):
