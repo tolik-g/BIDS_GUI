@@ -80,7 +80,7 @@ class Manager(QWidget):
         return True
 
     def get_current_subject_text(self):
-        subject_key = self.bids_key_file.subject_to_key(self.bids_subject)
+        subject_key = self.bids_key_file.subject_to_key(self.bids_subject.get_full_name())
         if subject_key == '':
             subject_key = self.bids_key_file.find_new_key()
         self.is_new_subject = subject_key == ''
