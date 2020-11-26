@@ -1,7 +1,6 @@
 from PyQt5.QtWidgets import *
 
-from ui.options_chooser_file import OptionsChooserFile
-from ui.options_chooser_folder import OptionsChooserFolder
+from ui.options_chooser import OptionsChooser
 from utils.bids_key_file import BidsKeyFile
 from utils.bids_options import BidsOptions
 from utils.bids_options_file import BidsOptionsFile
@@ -21,7 +20,7 @@ class Manager(QWidget):
 
         self.bids_subject = BidsSubject()
         self.bids_key_file = BidsKeyFile()
-        self.bids_options_chooser = None
+        self.bids_options_chooser = BidsOptions()
         self.show_bids_folder_chooser()
         self.is_new_subject = None
 
@@ -56,14 +55,8 @@ class Manager(QWidget):
 
     def show_options_chooser(self, option_type: BidsOptions.Type):
         self.clear_layout()
-        header_text = self.get_current_subject_text()
-        if option_type == BidsOptions.Type.FILE:
-            self.bids_options_chooser = BidsOptionsFile()
-            widget = OptionsChooserFile(self.bids_options_chooser, header_text)
-        else:
-            self.bids_options_chooser = BidsOptionsFolder()
-            widget = OptionsChooserFolder(self.bids_options_chooser, header_text)
-
+        self.bids_options_chooser = BidsOptionsFile() if option_type == BidsOptions.Type.FILE else BidsOptionsFolder()
+        widget = OptionsChooser(self.bids_options_chooser, header_text=self.get_current_subject_text())
         widget.bttn_finish.clicked.connect(self.finish)
         widget.bttn_back.clicked.connect(self.show_options_chooser_wrapper)
         self.layout.addWidget(widget)

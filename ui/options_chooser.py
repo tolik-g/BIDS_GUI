@@ -4,7 +4,7 @@ from utils.ui_utils import create_drop_down_option
 from utils.drag_and_drop import DragDropArea
 
 
-class OptionsChooserFile(QFrame):
+class OptionsChooser(QFrame):
     def __init__(self, options: BidsOptions, header_text: str):
         super().__init__()
         # layouts
@@ -27,7 +27,8 @@ class OptionsChooserFile(QFrame):
         self.layout_title.addWidget(title, 0, 1)
 
         # browse layout setup
-        self.drag_area = DragDropArea(text_title='file')
+        text_title = 'file' if options.get_type() == BidsOptions.Type.FILE else 'folder'
+        self.drag_area = DragDropArea(text_title=text_title)
         self.layout_browse.addWidget(self.drag_area, 0, 1)
         self.layout_browse.setColumnStretch(0, 1)
         self.layout_browse.setColumnStretch(2, 1)
@@ -54,11 +55,3 @@ class OptionsChooserFile(QFrame):
         self.layout_navigation_bttns.setColumnStretch(1, 1)
         self.layout_navigation_bttns.addWidget(self.bttn_back, 0, 0)
         self.layout_navigation_bttns.addWidget(self.bttn_finish, 0, 2)
-
-    def open_file(self):
-        # TODO fix to choose file
-        kwargs = {'caption': 'Select Directory'}
-        path = str(QFileDialog.getExistingDirectory(**kwargs))
-        if path == '':
-            return
-        self.dir_label.setText(path)
