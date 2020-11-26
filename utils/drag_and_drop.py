@@ -5,11 +5,10 @@ from PyQt5.QtCore import pyqtSignal as Signal
 from utils.ui_utils import HLine
 
 
-
 class DragDropArea(QFrame):
     dropped = Signal(str)
 
-    def __init__(self, title: str):
+    def __init__(self, text_title: str):
         super().__init__()
         self.setAcceptDrops(True)
         self.setFrameStyle(2)
@@ -32,7 +31,7 @@ class DragDropArea(QFrame):
         icon_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                                  '../icons/add.png')
         icon.setPixmap(QPixmap(icon_path))
-        title = QLabel('Drag & drop your %s here' % title)
+        title = QLabel('Drag & drop your %s here' % text_title)
         self.layout_icon.addWidget(title, 0, 1)
         self.layout_icon.addWidget(icon, 0, 2)
 
@@ -48,7 +47,7 @@ class DragDropArea(QFrame):
 
         # browse, upload button
         button_text = 'browse'
-        if title == 'folder':
+        if text_title == 'file':
             button_text = 'upload'
         self.bttn = QPushButton(button_text)
         self.layout_bttn.addWidget(self.bttn, 0, 1)
