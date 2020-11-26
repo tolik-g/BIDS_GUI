@@ -61,10 +61,7 @@ class DragDropArea(QFrame):
 
     def dragEnterEvent(self, event):
         data = event.mimeData()
-        if not data.hasUrls():
-            event.ignore()
-        else:
-            event.accept()
+        event.ignore() if not data.hasUrls() else event.accept()
 
     def dropEvent(self, event):
         url = event.mimeData().text()[7:]
@@ -73,13 +70,13 @@ class DragDropArea(QFrame):
     def select_file(self):
         kwargs = {'caption': 'Select Directory'}
         url = str(QFileDialog.getExistingDirectory(**kwargs))
-        if str == '':
+        if url == '':
             return
         self.path_modified.emit(url)
 
     def select_dir(self):
         kwargs = {'caption': 'Select Directory'}
         url = str(QFileDialog.getExistingDirectory(**kwargs))
-        if str == '':
+        if url == '':
             return
         self.path_modified.emit(url)
