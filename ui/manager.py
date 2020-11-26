@@ -65,7 +65,10 @@ class Manager(QWidget):
         print('done -> display the user a button to start over?')
         print(self.bids_options_chooser.selected)
         print('is valid: ' + str(self.bids_options_chooser.is_single_option_selected()))
-        print('type' + str(self.bids_options_chooser.get_type()))
+
+        if self.is_new_subject:
+            print('saving changes to key file!')
+            self.bids_key_file.create_new_key(self.bids_subject.get_full_name())
 
     def subject_validate(self):
         if not self.bids_subject.validate_empty():
@@ -76,6 +79,8 @@ class Manager(QWidget):
     def get_current_subject_text(self):
         subject_key = self.bids_key_file.subject_to_key(self.bids_subject.get_full_name())
         if subject_key == '':
+            self.is_new_subject = True
             subject_key = self.bids_key_file.find_new_key()
-        self.is_new_subject = subject_key == ''
+        else:
+            self.is_new_subject = False
         return subject_key + '-' + self.bids_subject.get_full_name()

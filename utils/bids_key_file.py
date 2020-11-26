@@ -19,6 +19,7 @@ class BidsKeyFile:
             return False
         if self.key_df is None:
             self.key_df = pd.read_csv(self.key_path)
+            self.key_df.set_index('key')
         return True
 
     def subject_to_key(self, subject_name: str):
@@ -35,4 +36,12 @@ class BidsKeyFile:
         last_subject = self.key_df.iloc[-1]['key']
         last_number = int(last_subject.split('-')[1])
         return 'sub-' + str(last_number + 1)
+
+    def create_new_key(self, subject_name: str):
+        if not self.validate():
+            return
+
+        new_key = self.find_new_key()
+        self.key_df.loc[new_key] = {'key': new_key, 'name': subject_name}
+        self.key_df.to_csv(self.key_path, index=False)
 

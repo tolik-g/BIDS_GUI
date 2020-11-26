@@ -7,7 +7,7 @@ from utils.ui_utils import create_drop_down_option
 class OptionsChooserWrapper(QFrame):
     def __init__(self):
         super().__init__()
-        # TODO center and enlarge file and folder buttons
+        # TODO enlarge file and folder buttons
         # layouts
         self.layout_main = QVBoxLayout()
         self.layout_navigation_bttns = QGridLayout()
