@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QMessageBox, QComboBox, QLabel
+from PyQt5.QtWidgets import QMessageBox, QComboBox, QLabel, QFrame
 
 from utils.bids_options import BidsOptions
 
@@ -20,3 +20,11 @@ def create_drop_down_option(key: str, options: BidsOptions):
 
     return label, box
 
+
+class HLine(QFrame):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.setFrameShape(QFrame.HLine)
+        self.setFrameShadow(QFrame.Sunken)
+        self.setLineWidth(1)
+        self.setMidLineWidth(0)
