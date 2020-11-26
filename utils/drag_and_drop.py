@@ -6,13 +6,14 @@ from utils.ui_utils import HLine
 
 
 class DragDropArea(QFrame):
-    dropped = Signal(str)
+    path_modified = Signal(str)
 
     def __init__(self, text_title: str):
         super().__init__()
         self.setAcceptDrops(True)
         self.setFrameStyle(2)
         self.setMinimumHeight(150)
+        self.setMinimumWidth(400)
         self.path = ''
 
         # layouts
@@ -24,7 +25,9 @@ class DragDropArea(QFrame):
         self.setLayout(self.layout_main)
         self.layout_main.addLayout(self.layout_icon)
         self.layout_main.addLayout(self.layout_or_separate)
+        self.layout_main.addSpacing(20)
         self.layout_main.addLayout(self.layout_bttn)
+        self.layout_main.addSpacing(10)
 
         # first row icon and caption
         icon = QLabel()
@@ -46,10 +49,12 @@ class DragDropArea(QFrame):
         self.layout_or_separate.setColumnStretch(2, 1)
 
         # browse, upload button
-        button_text = 'browse'
-        if text_title == 'file':
-            button_text = 'upload'
-        self.bttn = QPushButton(button_text)
+        self.bttn = QPushButton('upload')
+        if text_title == 'folder':
+            self.bttn.setText('browse')
+            self.bttn.clicked.connect(self.select_dir)
+        else:
+            self.bttn.clicked.connect(self.select_file)
         self.layout_bttn.addWidget(self.bttn, 0, 1)
         self.layout_bttn.setColumnStretch(0, 1)
         self.layout_bttn.setColumnStretch(2, 1)
@@ -63,4 +68,18 @@ class DragDropArea(QFrame):
 
     def dropEvent(self, event):
         url = event.mimeData().text()[7:]
-        self.dropped.emit(url)
+        self.path_modified.emit(url)
+
+    def select_file(self):
+        kwargs = {'caption': 'Select Directory'}
+        url = str(QFileDialog.getExistingDirectory(**kwargs))
+        if str == '':
+            return
+        self.path_modified.emit(url)
+
+    def select_dir(self):
+        kwargs = {'caption': 'Select Directory'}
+        url = str(QFileDialog.getExistingDirectory(**kwargs))
+        if str == '':
+            return
+        self.path_modified.emit(url)
