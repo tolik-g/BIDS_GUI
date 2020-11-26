@@ -68,6 +68,7 @@ class Manager(QWidget):
 
         if self.is_new_subject:
             print('saving changes to key file!')
+            self.is_new_subject = False
             self.bids_key_file.create_new_key(self.bids_subject.get_full_name())
 
     def subject_validate(self):
