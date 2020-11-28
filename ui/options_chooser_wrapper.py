@@ -1,6 +1,5 @@
 from PyQt5.QtWidgets import *
-from PyQt5.QtGui import QPixmap, QIcon
-import os
+
 
 class OptionsChooserWrapper(QFrame):
     def __init__(self):
