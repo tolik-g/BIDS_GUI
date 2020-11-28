@@ -1,7 +1,5 @@
 import pandas as pd
 
-from utils.bids_subject import BidsSubject
-
 
 class BidsKeyFile:
     def __init__(self):

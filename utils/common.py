@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QMessageBox, QComboBox, QLabel, QFrame
 
-from utils.bids_options import BidsOptions
+from data.bids_options import BidsOptions
 
 
 def show_warn_message(title, text):

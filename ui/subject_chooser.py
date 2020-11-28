@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import *
 
-from utils.bids_subject import BidsSubject
+from data.bids_subject import BidsSubject
 
 
 class SubjectChooser(QFrame):

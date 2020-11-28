@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import *
-from utils.bids_options import BidsOptions
-from utils.ui_utils import create_drop_down_option
+from data.bids_options import BidsOptions
+from utils.common import create_drop_down_option
 from utils.drag_and_drop import DragDropArea
 
 
