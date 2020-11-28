@@ -4,7 +4,6 @@ from PyQt5.QtWidgets import *
 class OptionsChooserWrapper(QFrame):
     def __init__(self):
         super().__init__()
-        # TODO enlarge file and folder buttons
         # layouts
         self.layout_main = QVBoxLayout()
         self.layout_navigation_bttns = QGridLayout()
