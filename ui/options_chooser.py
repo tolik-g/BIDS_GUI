@@ -47,7 +47,8 @@ class OptionsChooser(QFrame):
         self.layout_center.setColumnStretch(4, 1)
         self.layout_center.setColumnStretch(5, 1)
         self.layout_center.addLayout(self.layout_browse, 1, 1, 1, 4)
-        self.layout_center.addLayout(self.layout_dropdown, 2, 2, 1, 2)
+        self.layout_center.setRowMinimumHeight(2, 50)
+        self.layout_center.addLayout(self.layout_dropdown, 3, 2, 1, 2)
 
         # navigation layout setup
         self.bttn_finish = QPushButton('finish')
