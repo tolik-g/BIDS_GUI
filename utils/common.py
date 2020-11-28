@@ -1,5 +1,5 @@
-from PyQt5.QtWidgets import QMessageBox, QComboBox, QLabel, QFrame
-
+from PyQt5.QtWidgets import (QMessageBox, QComboBox, QLabel, QFrame, QWidget,
+                             QHBoxLayout)
 from data.bids_options import BidsOptions
 
 
@@ -28,3 +28,34 @@ class HLine(QFrame):
         self.setFrameShadow(QFrame.Sunken)
         self.setLineWidth(1)
         self.setMidLineWidth(0)
+
+
+class SubjectStatus(QWidget):
+    """
+    status line composed of QLabels
+    to visually indicate current working subject
+    """
+    def __init__(self, *args, name: str, last_name: str, code_id,
+                 resource=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        layout = QHBoxLayout()
+        self.setLayout(layout)
+
+        # name
+        name_str = 'name: {} {}'.format(name, last_name)
+        layout.addWidget(QLabel(name_str))
+
+        # code_id
+        code_str = '| code: {}'.format(code_id)
+        layout.addWidget(QLabel(code_str))
+
+        # resource
+        if resource is None:
+            self.resource_str = ''
+        else:
+            self.resource_str = '| resource: {}'.format(resource)
+        layout.addWidget(QLabel(self.resource_str))
+
+    def mod_resource(self, text: str):
+        text = '| resource: {}'.format(text)
+        self.resource_str.setText(text)
