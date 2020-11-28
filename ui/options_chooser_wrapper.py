@@ -17,9 +17,10 @@ class OptionsChooserWrapper(QFrame):
 
         # center layout setup
         self.bttn_file = QPushButton('File')
-        self.bttn_file.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        policy = QSizePolicy.Expanding
+        self.bttn_file.setSizePolicy(policy, policy)
         self.bttn_folder = QPushButton('Folder')
-        self.bttn_folder.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        self.bttn_folder.setSizePolicy(policy, policy)
         self.layout_center.addWidget(self.bttn_file, 1, 1)
         self.layout_center.addWidget(self.bttn_folder, 1, 2)
 
