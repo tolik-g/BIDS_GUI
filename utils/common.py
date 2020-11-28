@@ -46,7 +46,7 @@ class SubjectStatus(QWidget):
         layout.addWidget(QLabel(name_str))
 
         # code_id
-        code_str = '| code: {}'.format(subject_key)
+        code_str = '| key: {}'.format(subject_key)
         layout.addWidget(QLabel(code_str))
 
         # resource
