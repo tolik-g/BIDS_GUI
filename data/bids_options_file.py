@@ -1,4 +1,4 @@
-from utils.bids_options import BidsOptions
+from data.bids_options import BidsOptions
 
 
 class BidsOptionsFile(BidsOptions):

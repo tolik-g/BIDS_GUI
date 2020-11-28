@@ -1,8 +1,8 @@
 from PyQt5.QtWidgets import *
 import os.path
 
-from utils.bids_key_file import BidsKeyFile
-from utils.ui_utils import show_warn_message
+from data.bids_key_file import BidsKeyFile
+from utils.common import show_warn_message
 
 
 class KeyFileChooser(QFrame):

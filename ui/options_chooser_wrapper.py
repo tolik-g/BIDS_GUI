@@ -1,8 +1,5 @@
 from PyQt5.QtWidgets import *
 
-from utils.bids_options import BidsOptions
-from utils.ui_utils import create_drop_down_option
-
 
 class OptionsChooserWrapper(QFrame):
     def __init__(self):
