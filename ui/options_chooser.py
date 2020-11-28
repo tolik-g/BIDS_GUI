@@ -1,12 +1,14 @@
 from PyQt5.QtWidgets import *
 from data.bids_options import BidsOptions
-from utils.common import create_drop_down_option
+from utils.common import create_drop_down_option, SubjectStatus
 from utils.drag_and_drop import DragDropArea
 
 
 class OptionsChooser(QFrame):
-    def __init__(self, options: BidsOptions, header_text: str):
+    def __init__(self, options: BidsOptions, header_text: str,
+                 subject_status: SubjectStatus):
         super().__init__()
+
         # layouts
         self.layout_main = QVBoxLayout()
         self.layout_navigation_bttns = QGridLayout()
@@ -15,6 +17,7 @@ class OptionsChooser(QFrame):
         self.layout_browse = QGridLayout()
         self.layout_dropdown = QGridLayout()
 
+        self.layout_main.addWidget(subject_status)
         self.layout_main.addLayout(self.layout_center)
         self.layout_main.addLayout(self.layout_navigation_bttns)
         self.setLayout(self.layout_main)
@@ -29,6 +32,7 @@ class OptionsChooser(QFrame):
         # browse layout setup
         text_title = 'file' if options.get_type() == BidsOptions.Type.FILE else 'folder'
         self.drag_area = DragDropArea(text_title=text_title)
+        self.drag_area.path_modified.connect(subject_status.mod_resource)
         self.layout_browse.addWidget(self.drag_area, 0, 1)
         self.layout_browse.setColumnStretch(0, 1)
         self.layout_browse.setColumnStretch(2, 1)

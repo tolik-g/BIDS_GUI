@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import (QMessageBox, QComboBox, QLabel, QFrame, QWidget,
-                             QHBoxLayout)
+                             QHBoxLayout, QSizePolicy)
 from data.bids_options import BidsOptions
 
 
@@ -35,27 +35,35 @@ class SubjectStatus(QWidget):
     status line composed of QLabels
     to visually indicate current working subject
     """
-    def __init__(self, *args, name: str, last_name: str, code_id,
+    def __init__(self, *args, first_name: str, last_name: str, subject_key: str,
                  resource=None, **kwargs):
         super().__init__(*args, **kwargs)
         layout = QHBoxLayout()
         self.setLayout(layout)
 
         # name
-        name_str = 'name: {} {}'.format(name, last_name)
+        name_str = 'name: {} {}'.format(first_name, last_name)
         layout.addWidget(QLabel(name_str))
 
         # code_id
-        code_str = '| code: {}'.format(code_id)
+        code_str = '| code: {}'.format(subject_key)
         layout.addWidget(QLabel(code_str))
 
         # resource
         if resource is None:
-            self.resource_str = ''
+            resource_str = ''
         else:
-            self.resource_str = '| resource: {}'.format(resource)
-        layout.addWidget(QLabel(self.resource_str))
+            resource_str = '| resource: {}'.format(resource)
+        self.resource = QLabel(resource_str)
+        layout.addWidget(self.resource)
+
+        layout.addStretch()
 
     def mod_resource(self, text: str):
-        text = '| resource: {}'.format(text)
-        self.resource_str.setText(text)
+        text_ls = text.split('/')
+        'in case directory path ends with /'
+        if text_ls[-1]:
+            resource = '| resource: {}'.format(text_ls[-1])
+        else:
+            resource = '| resource: {}'.format(text_ls[-2])
+        self.resource.setText(resource)

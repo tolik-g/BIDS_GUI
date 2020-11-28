@@ -6,7 +6,7 @@ from data.bids_options import BidsOptions
 from data.bids_options_file import BidsOptionsFile
 from data.bids_options_folder import BidsOptionsFolder
 from data.bids_subject import BidsSubject
-from utils.common import show_warn_message
+from utils.common import show_warn_message, SubjectStatus
 from ui.key_file_chooser import KeyFileChooser
 from ui.options_chooser_wrapper import OptionsChooserWrapper
 from ui.subject_chooser import SubjectChooser
@@ -56,7 +56,16 @@ class Manager(QWidget):
     def show_options_chooser(self, option_type: BidsOptions.Type):
         self.clear_layout()
         self.bids_options_chooser = BidsOptionsFile() if option_type == BidsOptions.Type.FILE else BidsOptionsFolder()
-        widget = OptionsChooser(self.bids_options_chooser, header_text=self.get_current_subject_text())
+
+        subject_key = self.get_current_subject_key()
+        first_name = self.bids_subject.get_first_name()
+        last_name = self.bids_subject.get_last_name()
+        subject_status_widget = SubjectStatus(first_name=first_name,
+                                              last_name=last_name,
+                                              subject_key=subject_key)
+        widget = OptionsChooser(self.bids_options_chooser,
+                                header_text=self.get_current_subject_text(),
+                                subject_status=subject_status_widget)
         widget.bttn_finish.clicked.connect(self.finish)
         widget.bttn_back.clicked.connect(self.show_options_chooser_wrapper)
         self.layout.addWidget(widget)
@@ -78,10 +87,15 @@ class Manager(QWidget):
         return True
 
     def get_current_subject_text(self):
-        subject_key = self.bids_key_file.subject_to_key(self.bids_subject.get_full_name())
+        subject_key = self.get_current_subject_key()
+        return subject_key + '-' + self.bids_subject.get_full_name()
+
+    def get_current_subject_key(self):
+        subject_key = self.bids_key_file.subject_to_key(
+            self.bids_subject.get_full_name())
         if subject_key == '':
             self.is_new_subject = True
             subject_key = self.bids_key_file.find_new_key()
         else:
             self.is_new_subject = False
-        return subject_key + '-' + self.bids_subject.get_full_name()
+        return subject_key
