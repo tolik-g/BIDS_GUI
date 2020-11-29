@@ -59,7 +59,6 @@ class Manager(QWidget):
         subject_key = self.get_current_subject_key()
         subject_name = self.bids_subject.get_full_name()
         widget = OptionsChooser(self.bids_options_chooser,
-                                header_text=self.get_current_subject_text(),
                                 subject_name=subject_name,
                                 subject_key=subject_key)
         widget.bttn_finish.clicked.connect(self.finish)

@@ -6,14 +6,13 @@ from utils.drag_and_drop import DragDropArea
 
 
 class OptionsChooser(QFrame):
-    def __init__(self, options: BidsOptions, header_text: str,
-                 subject_name: str, subject_key: str):
+    def __init__(self, options: BidsOptions, subject_name: str,
+                 subject_key: str):
         super().__init__()
         # layouts
         self.layout_main = QVBoxLayout()
         self.layout_navigation_bttns = QGridLayout()
         self.layout_center = QGridLayout()
-        self.layout_title = QGridLayout()
         self.layout_browse = QGridLayout()
         self.layout_dropdown = QGridLayout()
 
@@ -24,13 +23,6 @@ class OptionsChooser(QFrame):
         self.layout_main.addLayout(self.layout_center)
         self.layout_main.addLayout(self.layout_navigation_bttns)
         self.setLayout(self.layout_main)
-
-        # title layout setup
-        title = QLabel(header_text)
-        title.setObjectName('title')
-        self.layout_title.setColumnStretch(0, 1)
-        self.layout_title.setColumnStretch(2, 1)
-        self.layout_title.addWidget(title, 0, 1)
 
         # browse layout setup
         text_title = 'file' if options.get_type() == BidsOptions.Type.FILE else 'folder'
