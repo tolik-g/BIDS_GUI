@@ -64,7 +64,6 @@ class Manager(QWidget):
                                               last_name=last_name,
                                               subject_key=subject_key)
         widget = OptionsChooser(self.bids_options_chooser,
-                                header_text=self.get_current_subject_text(),
                                 subject_status=subject_status_widget)
         widget.bttn_finish.clicked.connect(self.finish)
         widget.bttn_back.clicked.connect(self.show_options_chooser_wrapper)
@@ -85,10 +84,6 @@ class Manager(QWidget):
             show_warn_message("Oops", "Please fill the subject full name")
             return False
         return True
-
-    def get_current_subject_text(self):
-        subject_key = self.get_current_subject_key()
-        return subject_key + '-' + self.bids_subject.get_full_name()
 
     def get_current_subject_key(self):
         subject_key = self.bids_key_file.subject_to_key(
