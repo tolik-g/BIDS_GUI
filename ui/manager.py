@@ -6,6 +6,7 @@ from data.bids_options import BidsOptions
 from data.bids_options_file import BidsOptionsFile
 from data.bids_options_folder import BidsOptionsFolder
 from data.bids_subject import BidsSubject
+from data.bids_file import BidsFile
 from utils.common import show_warn_message
 from ui.key_file_chooser import KeyFileChooser
 from ui.options_chooser_wrapper import OptionsChooserWrapper
@@ -21,6 +22,7 @@ class Manager(QWidget):
         self.bids_subject = BidsSubject()
         self.bids_key_file = BidsKeyFile()
         self.bids_options_chooser = BidsOptions()
+        self.bids_file = BidsFile()
         self.show_bids_folder_chooser()
         self.is_new_subject = None
 
@@ -59,6 +61,7 @@ class Manager(QWidget):
         widget = OptionsChooser(self.bids_options_chooser,
                                 subject_name=self.bids_subject.get_full_name(),
                                 subject_key=self.get_current_subject_key())
+        widget.path_modified.connect(self.bids_file.set_file_path)
         widget.bttn_finish.clicked.connect(self.finish)
         widget.bttn_back.clicked.connect(self.show_options_chooser_wrapper)
         self.layout.addWidget(widget)

@@ -24,10 +24,11 @@ class OptionsChooser(QFrame):
         self.layout_main.addLayout(self.layout_navigation_bttns)
         self.setLayout(self.layout_main)
 
-        # browse layout setup
+        # drag and drop/ browse layout setup
         text_title = 'file' if options.get_type() == BidsOptions.Type.FILE else 'folder'
         self.drag_area = DragDropArea(text_title=text_title)
         self.drag_area.path_modified.connect(subject_status.mod_resource)
+        self.path_modified = self.drag_area.path_modified
         self.layout_browse.addWidget(self.drag_area, 0, 1)
         self.layout_browse.setColumnStretch(0, 1)
         self.layout_browse.setColumnStretch(2, 1)
