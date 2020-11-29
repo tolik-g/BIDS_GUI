@@ -1,7 +1,8 @@
 from PyQt5.QtWidgets import *
 from data.bids_options import BidsOptions
-from utils.common import create_drop_down_option, SubjectStatus
+from utils.common import create_drop_down_option
 from utils.drag_and_drop import DragDropArea
+from utils.subject_status import SubjectStatus
 
 
 class OptionsChooser(QFrame):

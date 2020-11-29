@@ -6,10 +6,11 @@ from data.bids_options import BidsOptions
 from data.bids_options_file import BidsOptionsFile
 from data.bids_options_folder import BidsOptionsFolder
 from data.bids_subject import BidsSubject
-from utils.common import show_warn_message, SubjectStatus
+from utils.common import show_warn_message
 from ui.key_file_chooser import KeyFileChooser
 from ui.options_chooser_wrapper import OptionsChooserWrapper
 from ui.subject_chooser import SubjectChooser
+from utils.subject_status import SubjectStatus
 
 
 class Manager(QWidget):
@@ -57,12 +58,9 @@ class Manager(QWidget):
         self.clear_layout()
         self.bids_options_chooser = BidsOptionsFile() if option_type == BidsOptions.Type.FILE else BidsOptionsFolder()
 
-        subject_key = self.get_current_subject_key()
-        first_name = self.bids_subject.get_first_name()
-        last_name = self.bids_subject.get_last_name()
-        subject_status_widget = SubjectStatus(first_name=first_name,
-                                              last_name=last_name,
-                                              subject_key=subject_key)
+        subject_status_widget = SubjectStatus(first_name=self.bids_subject.get_first_name(),
+                                              last_name=self.bids_subject.get_last_name(),
+                                              subject_key=self.get_current_subject_key())
         widget = OptionsChooser(self.bids_options_chooser,
                                 subject_status=subject_status_widget)
         widget.bttn_finish.clicked.connect(self.finish)
