@@ -56,11 +56,9 @@ class Manager(QWidget):
     def show_options_chooser(self, option_type: BidsOptions.Type):
         self.clear_layout()
         self.bids_options_chooser = BidsOptionsFile() if option_type == BidsOptions.Type.FILE else BidsOptionsFolder()
-        subject_key = self.get_current_subject_key()
-        subject_name = self.bids_subject.get_full_name()
         widget = OptionsChooser(self.bids_options_chooser,
-                                subject_name=subject_name,
-                                subject_key=subject_key)
+                                subject_name=self.bids_subject.get_full_name(),
+                                subject_key=self.get_current_subject_key())
         widget.bttn_finish.clicked.connect(self.finish)
         widget.bttn_back.clicked.connect(self.show_options_chooser_wrapper)
         self.layout.addWidget(widget)
