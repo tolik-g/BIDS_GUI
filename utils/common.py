@@ -1,5 +1,5 @@
-from PyQt5.QtWidgets import (QMessageBox, QComboBox, QLabel, QFrame, QWidget,
-                             QHBoxLayout, QSizePolicy)
+from PyQt5.QtWidgets import QMessageBox, QFrame, QLabel, QComboBox
+
 from data.bids_options import BidsOptions
 
 
@@ -11,14 +11,19 @@ def show_warn_message(title, text):
     msg.exec_()
 
 
-def create_drop_down_option(key: str, options: BidsOptions):
-    label = QLabel(key)
+def create_drop_down_option(first_key: str, second_key: str, options: BidsOptions):
+    label = QLabel(second_key)
     box = QComboBox()
-    box.addItems(options.options[key])
-    box.setCurrentIndex(options.get_selected(key))
-    box.currentIndexChanged.connect(lambda index: options.set_selected(key, index))
+    box.addItems(options.mul_options[first_key][second_key])
+    box.currentIndexChanged.connect(lambda index: options.set_mul_selected(second_key, index))
 
     return label, box
+
+
+def clear_layout(layout):
+    for i in range(layout.count())[::-1]:
+        item = layout.takeAt(i)
+        item.widget().deleteLater()
 
 
 class HLine(QFrame):
@@ -28,3 +33,5 @@ class HLine(QFrame):
         self.setFrameShadow(QFrame.Sunken)
         self.setLineWidth(1)
         self.setMidLineWidth(0)
+
+

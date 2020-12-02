@@ -1,13 +1,13 @@
 from PyQt5.QtWidgets import *
 
+from data_sets.preterm_options_file import PretermOptionsFile
+from data_sets.preterm_options_folder import PretermOptionsFolder
 from ui.options_chooser import OptionsChooser
 from data.bids_key_file import BidsKeyFile
 from data.bids_options import BidsOptions
-from data.bids_options_file import BidsOptionsFile
-from data.bids_options_folder import BidsOptionsFolder
 from data.bids_subject import BidsSubject
 from data.bids_file import BidsFile
-from utils.common import show_warn_message
+from utils.common import show_warn_message, clear_layout
 from ui.key_file_chooser import KeyFileChooser
 from ui.options_chooser_wrapper import OptionsChooserWrapper
 from ui.subject_chooser import SubjectChooser
@@ -26,19 +26,14 @@ class Manager(QWidget):
         self.show_bids_folder_chooser()
         self.is_new_subject = None
 
-    def clear_layout(self):
-        for i in range(self.layout.count())[::-1]:
-            item = self.layout.takeAt(i)
-            item.widget().deleteLater()
-
     def show_bids_folder_chooser(self):
-        self.clear_layout()
+        clear_layout(self.layout)
         widget = KeyFileChooser(self.bids_key_file)
         widget.bttn_next.clicked.connect(self.show_subj_chooser)
         self.layout.addWidget(widget)
 
     def show_subj_chooser(self):
-        self.clear_layout()
+        clear_layout(self.layout)
         widget = SubjectChooser(self.bids_subject)
         widget.bttn_next.clicked.connect(self.show_options_chooser_wrapper)
         widget.bttn_back.clicked.connect(self.show_bids_folder_chooser)
@@ -48,7 +43,7 @@ class Manager(QWidget):
         if not self.subject_validate():
             return
 
-        self.clear_layout()
+        clear_layout(self.layout)
         widget = OptionsChooserWrapper()
         widget.bttn_folder.clicked.connect(lambda: self.show_options_chooser(BidsOptions.Type.FOLDER))
         widget.bttn_file.clicked.connect(lambda: self.show_options_chooser(BidsOptions.Type.FILE))
@@ -56,8 +51,8 @@ class Manager(QWidget):
         self.layout.addWidget(widget)
 
     def show_options_chooser(self, option_type: BidsOptions.Type):
-        self.clear_layout()
-        self.bids_options_chooser = BidsOptionsFile() if option_type == BidsOptions.Type.FILE else BidsOptionsFolder()
+        clear_layout(self.layout)
+        self.bids_options_chooser = PretermOptionsFile() if option_type == BidsOptions.Type.FILE else PretermOptionsFolder()
         widget = OptionsChooser(self.bids_options_chooser,
                                 subject_name=self.bids_subject.get_full_name(),
                                 subject_key=self.get_current_subject_key())
@@ -67,10 +62,11 @@ class Manager(QWidget):
         self.layout.addWidget(widget)
 
     def finish(self):
-        print('done -> display the user a button to start over?')
-        print(self.bids_options_chooser.selected)
-        print('is valid: ' + str(self.bids_options_chooser.is_single_option_selected()))
-
+        print('data:')
+        print(self.bids_options_chooser.get_data())
+        print('data valid: ' + str(self.bids_options_chooser.is_last_selected()))
+        print()
+        print('file chosen is: ' + self.bids_file.get_file_path())
         if self.is_new_subject:
             print('saving changes to key file!')
             self.is_new_subject = False
