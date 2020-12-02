@@ -14,8 +14,8 @@ class BidsOptions:
         self.options = {}
         self.mul_options = {}
         self.selected_mul_options = {}
-        self.selected_single_option = ''
-        self.selected_main_key = ''
+        self.selected_singles = []
+        self.last_key = ''
         self.option_type = None
         self.mode_type = None
 
@@ -24,9 +24,6 @@ class BidsOptions:
 
     def get_mode(self):
         return self.mode_type
-
-    def set_main_key(self, key: str):
-        self.selected_main_key = key
 
     def init_mul_selected(self, first_key: str):
         for key in self.mul_options[first_key]:
@@ -42,12 +39,21 @@ class BidsOptions:
             return None
 
     def set_single_selected(self, value: str):
-        self.selected_main_key = self.selected_single_option
-        self.selected_single_option = value
+        if len(self.selected_singles) > 0:
+            is_same_key = False
+            for key, values in self.options.items():
+                if value in values and self.selected_singles[-1] in values:
+                    is_same_key = True
+                    break
+            is_same_key and self.selected_singles.pop()
+
+        self.selected_singles.append(value)
 
     def is_last_selected(self):
-        return self.get_options(self.selected_single_option) is None
+        return len(self.selected_singles) > 0 and self.get_options(self.selected_singles[-1]) is None
 
     def get_data(self):
-        options = self.selected_single_option if self.mode_type == BidsOptions.Mode.SINGLE else self.selected_mul_options
-        return self.selected_main_key, options
+        copy_list = self.selected_singles.copy()
+        if self.mode_type == BidsOptions.Mode.MUL:
+            copy_list.append(self.selected_mul_options)
+        return copy_list

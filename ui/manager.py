@@ -63,9 +63,12 @@ class Manager(QWidget):
         self.layout.addWidget(widget)
 
     def finish(self):
+        is_data_filled = self.bids_options_chooser.is_last_selected()
+        if not is_data_filled:
+            show_warn_message("Oops", "Please finish filling the form")
         print('data:')
         print(self.bids_options_chooser.get_data())
-        print('data valid: ' + str(self.bids_options_chooser.is_last_selected()))
+        print('data valid: ' + str(is_data_filled))
         print()
         print('file chosen is: ' + self.bids_file.get_file_path())
         if self.is_new_subject:

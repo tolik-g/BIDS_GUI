@@ -88,7 +88,6 @@ class OptionsChooser(QFrame):
         clear_layout(self.layout_selection)
         self.selection_label = QLabel('Fill ' + first_key + ':')
         self.layout_selection.addWidget(self.selection_label, 0, 0)
-        self.options.set_main_key(first_key)
         for index, key in enumerate(self.options.mul_options[first_key]):
             label, dropdown = create_drop_down_option(first_key, key, self.options)
             self.layout_selection.addWidget(label, index + 1, 0)
