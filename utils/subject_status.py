@@ -32,7 +32,7 @@ class SubjectStatus(QWidget):
 
     def mod_resource(self, text: str):
         text_ls = text.split('/')
-        'in case directory path ends with /'
+        # in case directory path ends with /
         if text_ls[-1]:
             resource = '| resource: {}'.format(text_ls[-1])
         else:
