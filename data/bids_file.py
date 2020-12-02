@@ -14,7 +14,12 @@ def dcm_to_nifti(path_in, path_out, f_name, compression=True):
     """
     extension = '.nii.gz' if compression else '.nii'
     path_out_f = os.path.join(path_out, f_name + extension)
-    dicom2nifti.dicom_series_to_nifti(path_in, path_out_f)
+    try:
+        dicom2nifti.dicom_series_to_nifti(path_in, path_out_f)
+        return True
+    except Exception as e:
+        # TODO: log exception?
+        return False
 
 
 # TODO start add rules, 1. fmri folders 2. video files
