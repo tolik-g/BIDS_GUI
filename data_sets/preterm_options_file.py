@@ -1,6 +1,7 @@
 from data.bids_options import BidsOptions
 
 
+# TODO remove unused dict
 class PretermOptionsFile(BidsOptions):
     def __init__(self):
         super().__init__()

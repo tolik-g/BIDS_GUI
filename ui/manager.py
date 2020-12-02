@@ -52,6 +52,7 @@ class Manager(QWidget):
 
     def show_options_chooser(self, option_type: BidsOptions.Type):
         clear_layout(self.layout)
+        # TODO add some factory to choose optionsFile and Folder class's base on data set folder
         self.bids_options_chooser = PretermOptionsFile() if option_type == BidsOptions.Type.FILE else PretermOptionsFolder()
         widget = OptionsChooser(self.bids_options_chooser,
                                 subject_name=self.bids_subject.get_full_name(),
