@@ -2,16 +2,18 @@ from PyQt5.QtWidgets import *
 import os.path
 
 from data.bids_key_file import BidsKeyFile
+from data.bids_options_factory import BidsOptionsFactory
 from utils.common import show_warn_message
 
 
-class KeyFileChooser(QFrame):
+class DataSetChooser(QFrame):
     BIDS_KEY_FILE = "BIDS_KEYS.csv"
 
-    def __init__(self, key_file: BidsKeyFile):
+    def __init__(self, key_file: BidsKeyFile, factory: BidsOptionsFactory):
         super().__init__()
-        self.bids_main_dir = None
+        self.bids_dataset_dir = None
         self.key_file = key_file
+        self.options_factory = factory
 
         # layouts
         self.layout_main = QVBoxLayout()
@@ -23,7 +25,7 @@ class KeyFileChooser(QFrame):
         self.layout_main.addLayout(self.layout_navigation_bttns)
 
         # title layout setup
-        title = QLabel('Choose main BIDS folder')
+        title = QLabel('Choose Data set folder')
         title.setObjectName('title')
         self.layout_title.setColumnStretch(0, 1)
         self.layout_title.setColumnStretch(2, 1)
@@ -52,15 +54,25 @@ class KeyFileChooser(QFrame):
 
     def open_folder(self):
         kwargs = {'caption': 'Select Directory'}
-        self.bids_main_dir = str(QFileDialog.getExistingDirectory(**kwargs))
-        self.dir_label.setText(self.bids_main_dir)
-        self.validate_key_file_exist()
+        self.bids_dataset_dir = str(QFileDialog.getExistingDirectory(**kwargs))
+        self.dir_label.setText(self.bids_dataset_dir)
+        self.validate_data_set_folder()
 
-    def validate_key_file_exist(self):
-        file = os.path.join(self.bids_main_dir, KeyFileChooser.BIDS_KEY_FILE)
+    def validate_data_set_folder(self):
+        folder_name = os.path.basename(self.bids_dataset_dir)
+        if folder_name not in BidsOptionsFactory.DATASETS:
+            self.show_warn('Invalid data set folder: ' + folder_name)
+            return
+
+        root_folder = os.path.abspath(os.path.join(self.bids_dataset_dir, os.pardir))
+        file = os.path.join(root_folder, DataSetChooser.BIDS_KEY_FILE)
         if os.path.isfile(file):
             self.bttn_next.setEnabled(True)
             self.key_file.set_file(file)
+            self.options_factory.set_data_set(folder_name)
         else:
-            self.bttn_next.setEnabled(False)
-            show_warn_message("Oops", "Folder does not contain bids key file")
+            self.show_warn("Bids key file is missing from root folder")
+
+    def show_warn(self, msg: str):
+        self.bttn_next.setEnabled(False)
+        show_warn_message("Oops", msg)

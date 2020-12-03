@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import *
 
+from data.bids_options_factory import BidsOptionsFactory
 from data_sets.preterm_options_file import PretermOptionsFile
 from data_sets.preterm_options_folder import PretermOptionsFolder
 from ui.options_chooser import OptionsChooser
@@ -8,7 +9,7 @@ from data.bids_options import BidsOptions
 from data.bids_subject import BidsSubject
 from data.bids_file import BidsFile
 from utils.common import show_warn_message, clear_layout
-from ui.key_file_chooser import KeyFileChooser
+from ui.data_set_chooser import DataSetChooser
 from ui.options_chooser_wrapper import OptionsChooserWrapper
 from ui.subject_chooser import SubjectChooser
 
@@ -19,16 +20,17 @@ class Manager(QWidget):
         self.layout = QVBoxLayout()
         self.setLayout(self.layout)
 
+        self.bids_options_chooser_factory = BidsOptionsFactory()
         self.bids_subject = BidsSubject()
         self.bids_key_file = BidsKeyFile()
         self.bids_options_chooser = BidsOptions()
         self.bids_file = BidsFile()
-        self.show_bids_folder_chooser()
+        self.show_data_set_chooser()
         self.is_new_subject = None
 
-    def show_bids_folder_chooser(self):
+    def show_data_set_chooser(self):
         clear_layout(self.layout)
-        widget = KeyFileChooser(self.bids_key_file)
+        widget = DataSetChooser(self.bids_key_file, self.bids_options_chooser_factory)
         widget.bttn_next.clicked.connect(self.show_subj_chooser)
         self.layout.addWidget(widget)
 
@@ -36,7 +38,7 @@ class Manager(QWidget):
         clear_layout(self.layout)
         widget = SubjectChooser(self.bids_subject)
         widget.bttn_next.clicked.connect(self.show_options_chooser_wrapper)
-        widget.bttn_back.clicked.connect(self.show_bids_folder_chooser)
+        widget.bttn_back.clicked.connect(self.show_data_set_chooser)
         self.layout.addWidget(widget)
 
     def show_options_chooser_wrapper(self):
@@ -52,9 +54,9 @@ class Manager(QWidget):
 
     def show_options_chooser(self, option_type: BidsOptions.Type):
         clear_layout(self.layout)
-        # TODO add some factory to choose optionsFile and Folder class's base on data set folder
-        self.bids_options_chooser = PretermOptionsFile() if option_type == BidsOptions.Type.FILE else PretermOptionsFolder()
+        self.bids_options_chooser = self.bids_options_chooser_factory.get_bids_options(option_type)
         widget = OptionsChooser(self.bids_options_chooser,
+                                data_set=self.bids_options_chooser_factory.get_data_set(),
                                 subject_name=self.bids_subject.get_full_name(),
                                 subject_key=self.get_current_subject_key())
         widget.path_modified.connect(self.bids_file.set_file_path)

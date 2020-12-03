@@ -1,19 +1,23 @@
 from PyQt5.QtWidgets import *
 
 
-class SubjectStatus(QWidget):
+class OptionsStatus(QWidget):
     """
     status line composed of QLabels
     to visually indicate current working subject
     """
     def __init__(self, *args, subject_name: str, subject_key: str,
-                 resource=None, **kwargs):
+                 data_set: str, resource=None, **kwargs):
         super().__init__(*args, **kwargs)
         layout = QHBoxLayout()
         self.setLayout(layout)
 
+        # data set
+        data_set_str = 'Dataset: {}'.format(data_set)
+        layout.addWidget(QLabel(data_set_str))
+
         # name
-        name_str = 'Subject: {}'.format(subject_name)
+        name_str = '| Subject: {}'.format(subject_name)
         layout.addWidget(QLabel(name_str))
 
         # code_id

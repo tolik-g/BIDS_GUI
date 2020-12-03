@@ -2,13 +2,13 @@ from PyQt5.QtCore import QTimer
 from PyQt5.QtWidgets import *
 from data.bids_options import BidsOptions
 from utils.common import clear_layout, create_drop_down_option
-from utils.subject_status import SubjectStatus
+from utils.options_status import OptionsStatus
 from utils.drag_and_drop import DragDropArea
 
 
 class OptionsChooser(QFrame):
     def __init__(self, options: BidsOptions, subject_name: str,
-                 subject_key: str):
+                 subject_key: str, data_set: str):
         super().__init__()
         # layouts
         self.layout_main = QVBoxLayout()
@@ -20,8 +20,9 @@ class OptionsChooser(QFrame):
         self.options = options
 
         # populate layout_main
-        subject_status = SubjectStatus(subject_name=subject_name,
-                                       subject_key=subject_key)
+        subject_status = OptionsStatus(subject_name=subject_name,
+                                       subject_key=subject_key,
+                                       data_set=data_set)
         self.layout_main.addWidget(subject_status)
         self.layout_main.addLayout(self.layout_center)
         self.layout_main.addLayout(self.layout_navigation_bttns)
