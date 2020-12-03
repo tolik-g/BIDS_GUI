@@ -70,7 +70,8 @@ class Manager(QWidget):
         print(self.bids_options_chooser.get_data())
         print('data valid: ' + str(is_data_filled))
         print()
-        print('file chosen is: ' + self.bids_file.get_file_path())
+        file_folder = 'file' if self.bids_options_chooser.get_type() == BidsOptions.Type.FILE else 'folder'
+        print('{} chosen is: {}'.format(file_folder, self.bids_file.get_file_path()))
         if self.is_new_subject:
             print('saving changes to key file!')
             self.is_new_subject = False

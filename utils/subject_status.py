@@ -13,18 +13,18 @@ class SubjectStatus(QWidget):
         self.setLayout(layout)
 
         # name
-        name_str = 'name: {}'.format(subject_name)
+        name_str = 'Subject: {}'.format(subject_name)
         layout.addWidget(QLabel(name_str))
 
         # code_id
-        code_str = '| key: {}'.format(subject_key)
+        code_str = '| Key: {}'.format(subject_key)
         layout.addWidget(QLabel(code_str))
 
         # resource
         if resource is None:
             resource_str = ''
         else:
-            resource_str = '| resource: {}'.format(resource)
+            resource_str = '| Resource: {}'.format(resource)
         self.resource = QLabel(resource_str)
         layout.addWidget(self.resource)
 
@@ -34,7 +34,7 @@ class SubjectStatus(QWidget):
         text_ls = text.split('/')
         # in case directory path ends with /
         if text_ls[-1]:
-            resource = '| resource: {}'.format(text_ls[-1])
+            resource = '| Resource: {}'.format(text_ls[-1])
         else:
-            resource = '| resource: {}'.format(text_ls[-2])
+            resource = '| Resource: {}'.format(text_ls[-2])
         self.resource.setText(resource)
