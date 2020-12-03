@@ -1,25 +1,4 @@
-import dicom2nifti
-import os
-
-
-# TODO part of the class i think since it has the file/folder chosen path
-def dcm_to_nifti(path_in, path_out, f_name, compression=True):
-    """
-    convert folder containing single dcm series to nifti file
-    :param path_in: path to folder containing single dcm series
-    :param path_out: output directory path
-    :param f_name: file name without extension
-    :param compression: boolean condition
-    :return:
-    """
-    extension = '.nii.gz' if compression else '.nii'
-    path_out_f = os.path.join(path_out, f_name + extension)
-    try:
-        dicom2nifti.dicom_series_to_nifti(path_in, path_out_f)
-        return True
-    except Exception as e:
-        # TODO: log exception?
-        return False
+from utils.common import dcm_to_nifti
 
 
 # TODO start add rules, 1. fmri folders 2. video files
@@ -32,3 +11,6 @@ class BidsFile:
 
     def get_file_path(self):
         return self.file_path
+
+    def move_dcm(self, path_out, f_name, compression=True):
+        dcm_to_nifti(self.file_path, path_out, f_name, compression)
