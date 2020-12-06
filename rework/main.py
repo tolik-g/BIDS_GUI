@@ -23,13 +23,13 @@ class MainWindow(QMainWindow):
         self.layout_main.addLayout(self.layout_destination)
 
         # layout destination
-        ## this layout is responsible for determining where
-        ## the file will be moved, it's name etc.
+        # -this layout is responsible for determining where
+        #  the file will be moved, it's name etc.
         # TODO: add relevant widgets/layouts
 
         # layout origin
-        ## this layout is responsible for subject picking,
-        ## file picking, and dataset picking.
+        # -this layout is responsible for subject picking,
+        #  file picking, and dataset picking.
         # TODO: add relevant widgets/layouts
 
 
