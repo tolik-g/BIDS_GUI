@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import *
 from data.bids_options import BidsOptions
 from utils.common import clear_layout, create_drop_down_option
 from utils.options_status import OptionsStatus
-from utils.drag_and_drop import DragDropArea
+from rework.drag_and_drop import DragDropArea
 
 
 class OptionsChooser(QFrame):

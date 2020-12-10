@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import *
-from PyQt5.QtGui import QPixmap, QPalette, QColor
+from PyQt5.QtGui import QPixmap
 import os
 from PyQt5.QtCore import pyqtSignal as Signal
 from utils.common import HLine
