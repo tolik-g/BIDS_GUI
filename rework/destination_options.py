@@ -49,9 +49,24 @@ class DestinationOptions(QWidget):
     """
     def __init__(self, structure, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        layout = QVBoxLayout()
-        self.setLayout(layout)
+        self.layout = QVBoxLayout()
+        self.setLayout(self.layout)
 
-    def populate_widget(self, structure):
+    def populate_widget(self, structure, section_key):
+        if structure[section_key][0] == 0:
+            for new_key in structure[section_key]:
+                if new_key in structure:
+                    self.populate_widget(structure, section_key)
+        else:
+            new_option = OptionSelector(label=section_key, options=structure)
+            self.layout.addWidget(new_option)
 
 
+
+
+
+structure = {
+    'root':[0, 'file type', 'session'],
+    'session':[1, 'session 1', 'session 2', 'session 3'],
+    'file type':[1, 'video', 'dcm']
+}
