@@ -66,6 +66,7 @@ class DataSetChooser(QFrame):
 
         root_folder = os.path.abspath(os.path.join(self.bids_dataset_dir, os.pardir))
         file = os.path.join(root_folder, DataSetChooser.BIDS_KEY_FILE)
+        print(file)
         if os.path.isfile(file):
             self.bttn_next.setEnabled(True)
             self.key_file.set_file(file)

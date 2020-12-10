@@ -6,7 +6,7 @@ from data_sets.preterm_options_folder import PretermOptionsFolder
 
 
 class BidsOptionsFactory:
-    DATASETS = ['preterm', 'fullterm']
+    DATASETS = ['preterm', 'fullterm', 'Downloads', 'EEG_MOM_CHLD_IV4615_053_170320 (2)']
 
     def __init__(self):
         self.data_set = None
