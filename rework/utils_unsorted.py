@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import pyqtSignal as Signal
+import os
 
 
 class ProjectSubjectSelect(QWidget):
@@ -11,7 +12,14 @@ class ProjectSubjectSelect(QWidget):
         self.project_value = QLineEdit()
         self.subject_value = QLineEdit()
 
+        self.subject_completion()
         self.setup_ui()
+
+    def subject_completion(self):
+        names_path = os.path.dirname(os.path.abspath(__file__))
+        names_path = os.path.join(names_path, 'random_names.txt')
+        print(names_path)
+        subjects_ls = ['']
 
     def setup_ui(self):
         row = 0
@@ -46,3 +54,21 @@ class SaveButton(QWidget):
 
     def toggle(self, toggle: bool):
         self.save_bttn.setEnabled(toggle)
+
+
+class HLine(QFrame):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.setFrameShape(QFrame.HLine)
+        self.setFrameShadow(QFrame.Sunken)
+        self.setLineWidth(1)
+        self.setMidLineWidth(0)
+
+
+class VLine(QFrame):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.setFrameShape(QFrame.VLine)
+        self.setFrameShadow(QFrame.Sunken)
+        self.setLineWidth(1)
+        self.setMidLineWidth(0)

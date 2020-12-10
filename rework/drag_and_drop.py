@@ -13,7 +13,7 @@ class DragDropArea(QFrame):
         self.setAcceptDrops(True)
         self.setFrameStyle(2)
         self.setMinimumHeight(150)
-        self.setMinimumWidth(400)
+        self.setMinimumWidth(300)
         self.path = ''
 
         # layouts

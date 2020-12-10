@@ -1,24 +1,24 @@
 from PyQt5.QtWidgets import *
 
 
-def validate_structure_rec(structure, key, key_seen, val_seen):
-    if not key in structure or type(structure[key]) is list:
-        return True
-    seen.append(key)
-    for elem in structure[key]:
-        if key_seen.count(elem) > 2:
-            return False
-        key_seen.append(key)
-        if not validate_structure_rec(structure, elem, key_seen):
-            return False
-    return True
+# def validate_structure_rec(structure, key, key_seen, val_seen):
+#     if not key in structure or type(structure[key]) is list:
+#         return True
+#     seen.append(key)
+#     for elem in structure[key]:
+#         if key_seen.count(elem) > 2:
+#             return False
+#         key_seen.append(key)
+#         if not validate_structure_rec(structure, elem, key_seen):
+#             return False
+#     return True
 
 
-def validate_structure(structure):
-    if 'root' not in structure:
-        return False
-    seen = []
-    return validate_structure_rec(structure, 'root', seen)
+# def validate_structure(structure):
+#     if 'root' not in structure:
+#         return False
+#     seen = []
+#     return validate_structure_rec(structure, 'root', seen)
 
 
 class OptionSelector(QWidget):

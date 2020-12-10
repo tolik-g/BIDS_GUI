@@ -20,18 +20,21 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(central_widget)
 
         # more generic setup
-        self.resize(600, 900)
+        self.resize(800, 900)
         self.show()
 
     def populate_layouts(self):
         # layout main
         self.layout_main.addLayout(self.layout_origin)
+        self.layout_main.addWidget(VLine())
         self.layout_main.addLayout(self.layout_destination)
+        self.layout_main.setStretch(0, 1)
+        self.layout_main.setStretch(2, 1)
 
         # layout destination
         # -this layout is responsible for determining where
         #  the file will be moved, it's name etc.
-        # TODO: add relevant widgets/layouts
+        self.layout_destination.addWidget(QPushButton('sample'))
 
         # layout origin
         # -this layout is responsible for subject picking,
@@ -40,6 +43,7 @@ class MainWindow(QMainWindow):
         drag_n_drop = DragDropArea('file')
         save_bttn = SaveButton()
         self.layout_origin.addWidget(project_subject_chooser)
+        self.layout_origin.addWidget(HLine())
         self.layout_origin.addWidget(drag_n_drop)
         self.layout_origin.addStretch()
         self.layout_origin.addWidget(save_bttn)
