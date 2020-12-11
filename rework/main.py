@@ -2,6 +2,7 @@ from PyQt5.QtWidgets import *
 from rework.utils_unsorted import *
 from rework.drag_and_drop import DragDropArea
 import sys
+import os
 
 
 class MainWindow(QMainWindow):
@@ -40,6 +41,15 @@ class MainWindow(QMainWindow):
         # -this layout is responsible for subject picking,
         #  file picking, and dataset picking.
         project_subject_chooser = ProjectSubjectSelect()
+
+        names_path = os.path.dirname(os.path.abspath(__file__))
+        names_path = os.path.join(names_path, 'random_names.txt')
+        with open(names_path, mode='r') as file:
+            names = file.readlines()
+
+        project_subject_chooser.update_subject_list(names)
+
+
         drag_n_drop = DragDropArea('file')
         save_bttn = SaveButton()
         self.layout_origin.addWidget(project_subject_chooser)
