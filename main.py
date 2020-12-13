@@ -3,7 +3,7 @@ from ui.dataset_subject_select import ProjectSubjectSelect
 from ui.drag_and_drop import DragDropArea
 import sys
 import os
-from ui.save_button import SaveButton
+from ui.finish_button import FinishButton
 from ui.separation_lines import HLine, VLine
 
 
@@ -44,7 +44,7 @@ class MainWindow(QMainWindow):
         #  file picking, and dataset picking.
         project_subject_chooser = ProjectSubjectSelect()
         drag_n_drop = DragDropArea('file')
-        save_bttn = SaveButton()
+        save_bttn = FinishButton()
         self.layout_origin.addWidget(project_subject_chooser)
         self.layout_origin.addWidget(HLine())
         self.layout_origin.addWidget(drag_n_drop)
