@@ -1,0 +1,11 @@
+{
+  "dataset": ["preterm", "fullterm"],
+  "root path": "sample_root",
+  "preterm": {
+    "options": {}
+  },
+  "fullterm": {
+    "options": {}
+  }
+
+}
