@@ -47,7 +47,7 @@ class MainWindow(QMainWindow):
         # -this layout is responsible for subject picking,
         #  file picking, and dataset picking.
         project_subject_chooser = ProjectSubjectSelect()
-        drag_n_drop = DragDropArea('file')
+        drag_n_drop = DragDropArea()
         save_bttn = FinishButton()
         self.layout_origin.addWidget(project_subject_chooser)
         self.layout_origin.addWidget(HLine())
