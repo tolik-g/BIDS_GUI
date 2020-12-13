@@ -1,6 +1,6 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap
-from PyQt5.QtWidgets import QWidget, QGridLayout, QLineEdit, QLabel, QCompleter
+from PyQt5.QtWidgets import *
 import os
 
 # find relative path to assets
@@ -17,7 +17,7 @@ class ProjectSubjectSelect(QWidget):
         super().__init__(*args, **kwargs)
 
         # fields
-        self.project_value = QLineEdit()
+        self.dataset_value = QComboBox()
         self.subject_value = QLineEdit()
         self.subject_ls = None
         self.subject_icon = QLabel()
@@ -43,6 +43,15 @@ class ProjectSubjectSelect(QWidget):
         completer.setFilterMode(Qt.MatchContains)
         self.subject_value.setCompleter(completer)
 
+    def update_dataset_list(self, dataset_ls: list):
+        """
+        update list of datasets available
+        :param dataset_ls:
+        :return:
+        """
+        self.dataset_value.clear()
+        self.dataset_value.addItems(dataset_ls)
+
     def setup_ui(self):
         # start with "invalid" icon for subject
         self.set_valid_subject(False)
@@ -50,9 +59,9 @@ class ProjectSubjectSelect(QWidget):
         row = 0
 
         # project
-        project_label = QLabel('Project')
-        self.layout.addWidget(project_label, row, 0)
-        self.layout.addWidget(self.project_value, row, 1)
+        dataset_label = QLabel('Dataset')
+        self.layout.addWidget(dataset_label, row, 0)
+        self.layout.addWidget(self.dataset_value, row, 1)
         row += 1
 
         # subject
