@@ -19,14 +19,17 @@ class DatasetSubjectChooser(QWidget):
         # fields
         self.dataset_value = QComboBox()
         self.subject_value = QLineEdit()
-        self.subject_ls = None
+        self.subject_ls = []
         self.subject_icon = QLabel()
 
         # signals
         # signal emitted when subject text is changed
-        self.subject_changed = self.subject_value.textEdited
+        self.subject_changed = self.subject_value.textChanged
         # signal emitted when value of dataset combobox has changed
         self.dataset_changed = self.dataset_value.currentTextChanged
+
+        # behaviour
+        self.subject_changed.connect(self.validate_subject)
 
         # generic widget setup
         self.layout = QGridLayout()
@@ -72,6 +75,9 @@ class DatasetSubjectChooser(QWidget):
         self.layout.addWidget(self.subject_value, row, 1)
         self.layout.addWidget(self.subject_icon, row, 2)
         row += 1
+
+    def validate_subject(self, name):
+        self.set_valid_subject(name in self.subject_ls)
 
     def set_valid_subject(self, toggle: bool):
         """
