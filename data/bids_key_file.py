@@ -20,6 +20,9 @@ class BidsKeyFile:
             self.key_df.set_index('key')
         return True
 
+    def get_subjects_names(self):
+        return self.key_df['name']
+
     def subject_to_key(self, subject_name: str):
         if not self.validate():
             return ''

@@ -1,23 +1,34 @@
 from PyQt5.QtWidgets import *
-
+import json
 from data.bids_options import BidsOptions
 from utils.config_loader import get_bids_options
-from ui.dataset_subject_select import ProjectSubjectSelect
+from ui.dataset_subject_chooser import DatasetSubjectChooser
 from ui.drag_and_drop import DragDropArea
 import sys
 from ui.finish_button import FinishButton
 from ui.separation_lines import HLine, VLine
+from data.bids_subject import BidsSubject
+from data.bids_key_file import BidsKeyFile
+import os
 
 
 class MainWindow(QMainWindow):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
+        # fields
+        self.config = None
+        self.key_file = BidsKeyFile()
+        self.dataset_subject_chooser = DatasetSubjectChooser()
+
         # setup layouts
         self.layout_origin = QVBoxLayout()
         self.layout_destination = QVBoxLayout()
         self.layout_main = QHBoxLayout()
         self.populate_layouts()
+
+        # setup connections
+        self.setup_connections()
 
         # setup central widget
         central_widget = QWidget()
@@ -46,16 +57,47 @@ class MainWindow(QMainWindow):
         # layout origin
         # -this layout is responsible for subject picking,
         #  file picking, and dataset picking.
-        project_subject_chooser = ProjectSubjectSelect()
         drag_n_drop = DragDropArea()
         save_bttn = FinishButton()
-        self.layout_origin.addWidget(project_subject_chooser)
+        self.layout_origin.addWidget(self.dataset_subject_chooser)
         self.layout_origin.addWidget(HLine())
         self.layout_origin.addWidget(drag_n_drop)
         self.layout_origin.addStretch()
         self.layout_origin.addWidget(save_bttn)
 
+    def setup_connections(self):
+        self.dataset_subject_chooser.dataset_changed.connect(
+            self.select_dataset)
+        self.load_config_file()
+        datasets_ls = self.get_datasets()
+        self.dataset_subject_chooser.update_dataset_list(datasets_ls)
+
+    def load_config_file(self):
+        path = 'config.json'
+        with open(path, 'r') as j_file:
+            config = json.load(j_file)
+        self.config = config
+
+    def get_datasets(self):
+        dataset_ls = self.config['dataset']
+        err_msg = 'dataset keyword should correspond to a list'
+        assert isinstance(dataset_ls, list), err_msg
+        return dataset_ls
+
+    def select_dataset(self, dataset):
+        path = os.path.join(self.config['root path'], dataset)
+        assert os.path.isdir(path), 'dataset path does not exist'
+        err_msg = "BIDS_KEYS.csv was not found in {}".format(path)
+        assert os.path.isfile(os.path.join(path, 'BIDS_KEYS.csv')), err_msg
+        abs_path_csv = os.path.abspath(os.path.join(path, 'BIDS_KEYS.csv'))
+        self.key_file.set_file(abs_path_csv)
+        self.key_file.validate()
+        subj_names = self.key_file.get_subjects_names()
+        self.dataset_subject_chooser.update_subject_list(subj_names)
+
 
 app = QApplication(sys.argv)
 window = MainWindow()
 sys.exit(app.exec())
+
+

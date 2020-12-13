@@ -12,7 +12,7 @@ VALID_ICON_PATH = os.path.join(icons_dir, 'assets/valid.png')
 INVALID_ICON_PATH = os.path.join(icons_dir, 'assets/invalid.png')
 
 
-class ProjectSubjectSelect(QWidget):
+class DatasetSubjectChooser(QWidget):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -25,6 +25,8 @@ class ProjectSubjectSelect(QWidget):
         # signals
         # signal emitted when subject text is changed
         self.subject_changed = self.subject_value.textEdited
+        # signal emitted when value of dataset combobox has changed
+        self.dataset_changed = self.dataset_value.currentTextChanged
 
         # generic widget setup
         self.layout = QGridLayout()
