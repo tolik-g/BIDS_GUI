@@ -1,11 +1,10 @@
 from PyQt5.QtWidgets import *
 
 from data.bids_options import BidsOptions
-from data.bids_options_loader import get_bids_options
+from utils.config_loader import get_bids_options
 from ui.dataset_subject_select import ProjectSubjectSelect
 from ui.drag_and_drop import DragDropArea
 import sys
-import os
 from ui.finish_button import FinishButton
 from ui.separation_lines import HLine, VLine
 

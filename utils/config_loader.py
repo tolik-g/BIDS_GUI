@@ -19,6 +19,7 @@ def get_bids_options(option_type: BidsOptions.Type, dataset: str):
         return BidsOptions(type_, mode_, options_, mul_options_)
 
 
-class BidsOptionsLoader:
-    def __init__(self):
-        pass
+def get_dataset_list():
+    with open('config.json') as json_file:
+        data = json.load(json_file)
+        return data['dataset']
