@@ -1,12 +1,13 @@
-from PyQt5.QtWidgets import *
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import *
-from PyQt5.QtCore import pyqtSignal as Signal
+from PyQt5.QtGui import QPixmap
+from PyQt5.QtWidgets import QWidget, QGridLayout, QLineEdit, QLabel, QCompleter
 import os
 
+# find relative path to assets
 icons_dir = os.path.dirname(os.path.abspath(__file__))
 icons_dir = os.path.split(icons_dir)[0]
-print(icons_dir)
+
+# constants
 VALID_ICON_PATH = os.path.join(icons_dir, 'assets/valid.png')
 INVALID_ICON_PATH = os.path.join(icons_dir, 'assets/invalid.png')
 
@@ -14,21 +15,28 @@ INVALID_ICON_PATH = os.path.join(icons_dir, 'assets/invalid.png')
 class ProjectSubjectSelect(QWidget):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.layout = QGridLayout()
-        self.setLayout(self.layout)
 
+        # fields
         self.project_value = QLineEdit()
         self.subject_value = QLineEdit()
         self.subject_ls = None
         self.subject_icon = QLabel()
 
         # signals
+        # signal emitted when subject text is changed
         self.subject_changed = self.subject_value.textEdited
 
-        self.set_valid_subject(False)
+        # generic widget setup
+        self.layout = QGridLayout()
+        self.setLayout(self.layout)
         self.setup_ui()
 
-    def update_subject_list(self, subject_ls):
+    def update_subject_list(self, subject_ls: list):
+        """
+        add auto completion to subject input
+        :param subject_ls: list of subject names
+        :return:
+        """
         self.subject_ls = subject_ls
         completer = QCompleter(subject_ls)
         completer.setCaseSensitivity(Qt.CaseInsensitive)
@@ -36,6 +44,9 @@ class ProjectSubjectSelect(QWidget):
         self.subject_value.setCompleter(completer)
 
     def setup_ui(self):
+        # start with "invalid" icon for subject
+        self.set_valid_subject(False)
+
         row = 0
 
         # project
@@ -52,45 +63,12 @@ class ProjectSubjectSelect(QWidget):
         row += 1
 
     def set_valid_subject(self, toggle: bool):
+        """
+        set valid/invalid subject icon
+        :param toggle: True = valid, False = invalid
+        :return:
+        """
         if toggle:
             self.subject_icon.setPixmap(QPixmap(VALID_ICON_PATH))
         else:
             self.subject_icon.setPixmap(QPixmap(INVALID_ICON_PATH))
-            print(INVALID_ICON_PATH)
-
-
-class SaveButton(QWidget):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.layout = QHBoxLayout()
-        self.setLayout(self.layout)
-
-        self.save_bttn = QPushButton('save')
-        self.clicked = self.save_bttn.clicked
-
-        self.setup_ui()
-
-    def setup_ui(self):
-        self.layout.addWidget(self.save_bttn)
-        self.layout.addStretch()
-
-    def toggle(self, toggle: bool):
-        self.save_bttn.setEnabled(toggle)
-
-
-class HLine(QFrame):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.setFrameShape(QFrame.HLine)
-        self.setFrameShadow(QFrame.Sunken)
-        self.setLineWidth(1)
-        self.setMidLineWidth(0)
-
-
-class VLine(QFrame):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.setFrameShape(QFrame.VLine)
-        self.setFrameShadow(QFrame.Sunken)
-        self.setLineWidth(1)
-        self.setMidLineWidth(0)

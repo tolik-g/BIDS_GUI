@@ -2,7 +2,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QPixmap
 import os
 from PyQt5.QtCore import pyqtSignal as Signal
-from utils.common import HLine
+from ui.separation_lines import HLine
 
 
 class DragDropArea(QFrame):
