@@ -1,4 +1,7 @@
 from PyQt5.QtWidgets import *
+
+from data.bids_options import BidsOptions
+from data.bids_options_loader import get_bids_options
 from ui.dataset_subject_select import ProjectSubjectSelect
 from ui.drag_and_drop import DragDropArea
 import sys
@@ -25,6 +28,8 @@ class MainWindow(QMainWindow):
         # more generic setup
         self.resize(800, 900)
         self.show()
+        # TODO connect others to this -> after Drag & Drop we can know if its a file or a folder
+        get_bids_options(BidsOptions.Type.FOLDER, "preterm")
 
     def populate_layouts(self):
         # layout main

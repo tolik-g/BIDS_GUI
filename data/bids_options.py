@@ -2,7 +2,6 @@ from enum import Enum
 
 
 class BidsOptions:
-    # TODO: deprecate type selection, drag and drop will accept both files and directories
     class Type(Enum):
         FILE = 1
         FOLDER = 2
@@ -11,20 +10,20 @@ class BidsOptions:
         SINGLE = 1
         MUL = 2
 
-    def __init__(self):
-        self.options = {}
-        self.mul_options = {}
+    def __init__(self, type_: Type, mode_, options_, mul_options_):
+        self.options = options_
+        self.mul_options = mul_options_
         self.selected_mul_options = {}
         self.selected_singles = []
         self.last_key = ''
-        self.option_type = None
-        self.mode_type = None
+        self.type = type_
+        self.mode = mode_
 
     def get_type(self):
-        return self.option_type
+        return self.type
 
     def get_mode(self):
-        return self.mode_type
+        return self.mode
 
     def init_mul_selected(self, first_key: str):
         for key in self.mul_options[first_key]:
@@ -55,6 +54,6 @@ class BidsOptions:
 
     def get_data(self):
         copy_list = self.selected_singles.copy()
-        if self.mode_type == BidsOptions.Mode.MUL:
+        if self.mode == BidsOptions.Mode.MUL:
             copy_list.append(self.selected_mul_options)
         return copy_list

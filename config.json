@@ -2,10 +2,58 @@
   "dataset": ["preterm", "fullterm"],
   "root path": "sample_root",
   "preterm": {
-    "options": {}
+    "folder":
+    {
+      "mode": "SINGLE",
+      "options":
+      {
+        "type": ["fmri"],
+        "fmri": ["anatomy", "functional", "DWI"],
+        "functional": ["Rest", "Empathy", "SO Interaction", "Serial subtraction"]
+      }
+    },
+    "file":
+    {
+      "mode": "MUL",
+      "options":
+      {
+        "type": ["video"]
+      },
+      "mul_options":
+      {
+        "video":
+        {
+          "interaction type": ["play", "conflict", "fun day"],
+          "order": ["self-other", "other-self"]
+        }
+      }
+    }
   },
   "fullterm": {
-    "options": {}
+    "folder":
+    {
+      "mode": "SINGLE",
+      "options":
+      {
+        "type": ["fmri"],
+        "fmri": ["anatomy", "functional", "DWI"],
+        "functional": ["Rest", "Empathy", "SO Interaction", "Serial subtraction"]
+      }
+    },
+    "file":
+    {
+      "mode": "MUL",
+      "options":
+      {
+        "type": ["TODO"]
+      },
+      "mul_options":
+      {
+        "TODO":
+        {
+          "A": ["a", "b"]
+        }
+      }
+    }
   }
-
 }
