@@ -7,8 +7,8 @@ import os
 icons_dir = os.path.dirname(os.path.abspath(__file__))
 icons_dir = os.path.split(icons_dir)[0]
 print(icons_dir)
-VALID_ICON_PATH = os.path.join(icons_dir, 'icons/valid.png')
-INVALID_ICON_PATH = os.path.join(icons_dir, 'icons/invalid.png')
+VALID_ICON_PATH = os.path.join(icons_dir, 'assets/valid.png')
+INVALID_ICON_PATH = os.path.join(icons_dir, 'assets/invalid.png')
 
 
 class ProjectSubjectSelect(QWidget):

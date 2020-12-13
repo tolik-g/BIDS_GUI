@@ -32,7 +32,7 @@ class DragDropArea(QFrame):
         # first row icon and caption
         icon = QLabel()
         icon_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                 '../icons/add.png')
+                                 '../assets/add.png')
         icon.setPixmap(QPixmap(icon_path))
         title = QLabel('Drag & drop your %s here' % text_title)
         self.layout_icon.addWidget(title, 0, 1)

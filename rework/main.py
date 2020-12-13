@@ -1,6 +1,5 @@
-from PyQt5.QtWidgets import *
 from rework.utils_unsorted import *
-from rework.drag_and_drop import DragDropArea
+from ui.drag_and_drop import DragDropArea
 import sys
 import os
 
