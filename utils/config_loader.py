@@ -22,7 +22,9 @@ def get_bids_options(option_type: BidsOptions.Type, dataset: str):
 def get_dataset_list():
     with open('config.json') as json_file:
         data = json.load(json_file)
-        return data['dataset']
+        dataset_ls = data['dataset']
+        assert isinstance(dataset_ls, list), 'dataset keyword should correspond to a list'
+        return dataset_ls
 
 
 def get_root_path():

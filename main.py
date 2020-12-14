@@ -7,7 +7,6 @@ from ui.drag_and_drop import DragDropArea
 import sys
 from ui.finish_button import FinishButton
 from ui.separation_lines import HLine, VLine
-from data.bids_subject import BidsSubject
 from data.bids_key_file import BidsKeyFile
 import os
 
@@ -57,24 +56,18 @@ class MainWindow(QMainWindow):
         # -this layout is responsible for subject picking,
         #  file picking, and dataset picking.
         drag_n_drop = DragDropArea()
-        save_bttn = FinishButton()
+        finish_bttn = FinishButton()
         self.layout_origin.addWidget(self.dataset_subject_chooser)
         self.layout_origin.addWidget(HLine())
         self.layout_origin.addWidget(drag_n_drop)
         self.layout_origin.addStretch()
-        self.layout_origin.addWidget(save_bttn)
+        self.layout_origin.addWidget(finish_bttn)
 
     def setup_connections(self):
         self.dataset_subject_chooser.dataset_changed.connect(
             self.select_dataset)
-        datasets_ls = self.get_datasets()
+        datasets_ls = get_dataset_list()
         self.dataset_subject_chooser.update_dataset_list(datasets_ls)
-
-    def get_datasets(self):
-        dataset_ls = get_dataset_list()
-        err_msg = 'dataset keyword should correspond to a list'
-        assert isinstance(dataset_ls, list), err_msg
-        return dataset_ls
 
     def select_dataset(self, dataset):
         path = os.path.join(get_root_path(), dataset)
@@ -90,5 +83,3 @@ class MainWindow(QMainWindow):
 app = QApplication(sys.argv)
 window = MainWindow()
 sys.exit(app.exec())
-
-

@@ -2,7 +2,6 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QPixmap
 import os
 from PyQt5.QtCore import pyqtSignal as Signal
-from ui.separation_lines import HLine
 
 
 class DragDropArea(QFrame):
@@ -28,7 +27,7 @@ class DragDropArea(QFrame):
         icon_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                                  '../assets/add.png')
         icon.setPixmap(QPixmap(icon_path))
-        title = QLabel('Drag & drop your files/folder here')
+        title = QLabel('Drag & drop your file / folder here')
         self.layout_icon.addWidget(title, 0, 1)
         self.layout_icon.addWidget(icon, 0, 2)
 
