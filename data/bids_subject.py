@@ -10,3 +10,4 @@ class BidsSubject:
 
     def validate_empty(self):
         return self.name != ''
+# TODO remove if not needed after main has the subject from dataset_subject_chooser
