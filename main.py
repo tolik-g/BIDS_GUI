@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import *
 import json
 from data.bids_options import BidsOptions
+from ui.options_chooser import OptionsChooser
 from utils.config_loader import get_bids_options, get_dataset_list, get_root_path
 from ui.dataset_subject_chooser import DatasetSubjectChooser
 from ui.drag_and_drop import DragDropArea
@@ -25,6 +26,8 @@ class MainWindow(QMainWindow):
         self.layout_origin = QVBoxLayout()
         self.layout_destination = QVBoxLayout()
         self.layout_main = QHBoxLayout()
+        # TODO connect others to this -> after Drag & Drop we can know if its a file or a folder
+        self.bids_options = get_bids_options(BidsOptions.Type.FOLDER, "preterm")
         self.populate_layouts()
 
         # setup connections
@@ -38,8 +41,6 @@ class MainWindow(QMainWindow):
         # more generic setup
         self.resize(800, 900)
         self.show()
-        # TODO connect others to this -> after Drag & Drop we can know if its a file or a folder
-        get_bids_options(BidsOptions.Type.FOLDER, "preterm")
 
     def populate_layouts(self):
         # layout main
@@ -52,7 +53,7 @@ class MainWindow(QMainWindow):
         # layout destination
         # -this layout is responsible for determining where
         #  the file will be moved, it's name etc.
-        self.layout_destination.addWidget(QPushButton('sample'))
+        self.layout_destination.addWidget(OptionsChooser(self.bids_options))
 
         # layout origin
         # -this layout is responsible for subject picking,
