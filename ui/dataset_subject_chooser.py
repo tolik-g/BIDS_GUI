@@ -90,3 +90,8 @@ class DatasetSubjectChooser(QWidget):
             self.subject_icon.setPixmap(QPixmap(VALID_ICON_PATH))
         else:
             self.subject_icon.setPixmap(QPixmap(INVALID_ICON_PATH))
+
+    def get_data(self):
+        data = {"dataset": self.dataset_value.currentText(),
+                "subject": self.subject_value.text()}
+        return data

@@ -18,6 +18,7 @@ class MainWindow(QMainWindow):
         # fields
         self.key_file = BidsKeyFile()
         self.dataset_subject_chooser = DatasetSubjectChooser()
+        self.finish_bttn = FinishButton()
 
         # setup layouts
         self.layout_origin = QVBoxLayout()
@@ -56,18 +57,19 @@ class MainWindow(QMainWindow):
         # -this layout is responsible for subject picking,
         #  file picking, and dataset picking.
         drag_n_drop = DragDropArea()
-        finish_bttn = FinishButton()
+
         self.layout_origin.addWidget(self.dataset_subject_chooser)
         self.layout_origin.addWidget(HLine())
         self.layout_origin.addWidget(drag_n_drop)
         self.layout_origin.addStretch()
-        self.layout_origin.addWidget(finish_bttn)
+        self.layout_origin.addWidget(self.finish_bttn)
 
     def setup_connections(self):
         self.dataset_subject_chooser.dataset_changed.connect(
             self.select_dataset)
         datasets_ls = get_dataset_list()
         self.dataset_subject_chooser.update_dataset_list(datasets_ls)
+        self.finish_bttn.clicked.connect(self.execute)
 
     def select_dataset(self, dataset):
         path = os.path.join(get_root_path(), dataset)
@@ -78,6 +80,14 @@ class MainWindow(QMainWindow):
         self.key_file.set_file(abs_path_csv)
         subj_names = self.key_file.get_subjects_names()
         self.dataset_subject_chooser.update_subject_list(subj_names)
+
+    def execute(self):
+        data = self.dataset_subject_chooser.get_data()
+        data['subject key'] = self.key_file.subject_to_key(data['subject'])
+
+        # temp print out form values
+        for key, val in data.items():
+            print('{}: {},'.format(key, val))
 
 
 app = QApplication(sys.argv)
