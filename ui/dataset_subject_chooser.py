@@ -47,6 +47,7 @@ class DatasetSubjectChooser(QWidget):
         completer.setCaseSensitivity(Qt.CaseInsensitive)
         completer.setFilterMode(Qt.MatchContains)
         self.subject_value.setCompleter(completer)
+        self.validate_subject(self.subject_value.text())
 
     def update_dataset_list(self, dataset_ls: list):
         """
