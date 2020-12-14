@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import *
 import json
 from data.bids_options import BidsOptions
-from utils.config_loader import get_bids_options
+from utils.config_loader import get_bids_options, get_dataset_list, get_root_path
 from ui.dataset_subject_chooser import DatasetSubjectChooser
 from ui.drag_and_drop import DragDropArea
 import sys
@@ -17,7 +17,6 @@ class MainWindow(QMainWindow):
         super().__init__(*args, **kwargs)
 
         # fields
-        self.config = None
         self.key_file = BidsKeyFile()
         self.dataset_subject_chooser = DatasetSubjectChooser()
 
@@ -68,24 +67,17 @@ class MainWindow(QMainWindow):
     def setup_connections(self):
         self.dataset_subject_chooser.dataset_changed.connect(
             self.select_dataset)
-        self.load_config_file()
         datasets_ls = self.get_datasets()
         self.dataset_subject_chooser.update_dataset_list(datasets_ls)
 
-    def load_config_file(self):
-        path = 'config.json'
-        with open(path, 'r') as j_file:
-            config = json.load(j_file)
-        self.config = config
-
     def get_datasets(self):
-        dataset_ls = self.config['dataset']
+        dataset_ls = get_dataset_list()
         err_msg = 'dataset keyword should correspond to a list'
         assert isinstance(dataset_ls, list), err_msg
         return dataset_ls
 
     def select_dataset(self, dataset):
-        path = os.path.join(self.config['root path'], dataset)
+        path = os.path.join(get_root_path(), dataset)
         assert os.path.isdir(path), 'dataset path does not exist'
         err_msg = "BIDS_KEYS.csv was not found in {}".format(path)
         assert os.path.isfile(os.path.join(path, 'BIDS_KEYS.csv')), err_msg

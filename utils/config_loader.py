@@ -23,3 +23,9 @@ def get_dataset_list():
     with open('config.json') as json_file:
         data = json.load(json_file)
         return data['dataset']
+
+
+def get_root_path():
+    with open('config.json') as json_file:
+        data = json.load(json_file)
+        return data['root path']
