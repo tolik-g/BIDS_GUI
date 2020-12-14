@@ -10,6 +10,8 @@ from ui.separation_lines import HLine, VLine
 from data.bids_key_file import BidsKeyFile
 import os
 
+BIDS_KEY = 'BIDS_KEYS.csv'
+
 
 class MainWindow(QMainWindow):
     def __init__(self, *args, **kwargs):
@@ -74,9 +76,9 @@ class MainWindow(QMainWindow):
     def select_dataset(self, dataset):
         path = os.path.join(get_root_path(), dataset)
         assert os.path.isdir(path), 'dataset path does not exist'
-        err_msg = "BIDS_KEYS.csv was not found in {}".format(path)
-        assert os.path.isfile(os.path.join(path, 'BIDS_KEYS.csv')), err_msg
-        abs_path_csv = os.path.abspath(os.path.join(path, 'BIDS_KEYS.csv'))
+        err_msg = "{} was not found in {}".format(BIDS_KEY, path)
+        assert os.path.isfile(os.path.join(path, BIDS_KEY)), err_msg
+        abs_path_csv = os.path.abspath(os.path.join(path, BIDS_KEY))
         self.key_file.set_file(abs_path_csv)
         subj_names = self.key_file.get_subjects_names()
         self.dataset_subject_chooser.update_subject_list(subj_names)
