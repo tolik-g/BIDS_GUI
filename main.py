@@ -86,7 +86,6 @@ class MainWindow(QMainWindow):
     def execute(self):
         data = self.dataset_subject_chooser.get_data()
         data['subject key'] = self.key_file.subject_to_key(data['subject'])
-
         # temp print out form values
         for key, val in data.items():
             print('{}: {},'.format(key, val))

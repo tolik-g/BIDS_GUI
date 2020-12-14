@@ -93,5 +93,5 @@ class DatasetSubjectChooser(QWidget):
 
     def get_data(self):
         data = {"dataset": self.dataset_value.currentText(),
-                "subject": self.subject_value.text()}
+                "subject": self.subject_value.text().lower()}
         return data
