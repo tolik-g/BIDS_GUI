@@ -29,8 +29,7 @@ class BidsKeyFile:
     def subject_to_key(self, subject_name: str):
         if not self.validate():
             return ''
-
-        row = self.key_df.loc[self.key_df['name'].str.lower() == subject_name]
+        row = self.key_df.loc[self.key_df['name'] == subject_name]
         return row.iloc[0]['key'] if not row.empty else ''
 
     def find_new_key(self):
@@ -40,11 +39,3 @@ class BidsKeyFile:
         last_subject = self.key_df.iloc[-1]['key']
         last_number = int(last_subject.split('-')[1])
         return 'sub-' + str(last_number + 1)
-
-    def create_new_key(self, subject_name: str):
-        if not self.validate():
-            return
-
-        new_key = self.find_new_key()
-        self.key_df.loc[new_key] = {'key': new_key, 'name': subject_name}
-        self.key_df.to_csv(self.key_path, index=False)
