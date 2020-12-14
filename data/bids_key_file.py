@@ -11,6 +11,7 @@ class BidsKeyFile:
 
     def set_file(self, file):
         self.key_path = file
+        self.key_df = None
 
     def validate(self):
         if self.key_path == '':
@@ -21,6 +22,8 @@ class BidsKeyFile:
         return True
 
     def get_subjects_names(self):
+        if not self.validate():
+            return []
         return list(self.key_df['name'])
 
     def subject_to_key(self, subject_name: str):
@@ -29,8 +32,6 @@ class BidsKeyFile:
 
         row = self.key_df.loc[self.key_df['name'].str.lower() == subject_name]
         return row.iloc[0]['key'] if not row.empty else ''
-
-    # TODO: add get_name_list() funciton that returns a list of subject names
 
     def find_new_key(self):
         if not self.validate():

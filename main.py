@@ -83,7 +83,6 @@ class MainWindow(QMainWindow):
         assert os.path.isfile(os.path.join(path, 'BIDS_KEYS.csv')), err_msg
         abs_path_csv = os.path.abspath(os.path.join(path, 'BIDS_KEYS.csv'))
         self.key_file.set_file(abs_path_csv)
-        self.key_file.validate()
         subj_names = self.key_file.get_subjects_names()
         self.dataset_subject_chooser.update_subject_list(subj_names)
 
