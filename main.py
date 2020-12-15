@@ -24,14 +24,12 @@ class MainWindow(QMainWindow):
         self.dataset_subject_chooser = DatasetSubjectChooser()
         self.finish_bttn = FinishButton()
         # TODO connect others to this -> after Drag & Drop we can know if its a file or a folder
-        self.bids_options = get_bids_options(BidsOptions.Type.FOLDER, "preterm")
+        self.bids_options = get_bids_options(BidsOptions.Type.FILE, "fullterm")
 
         # layouts
         self.layout_origin = QVBoxLayout()
         self.layout_destination = QVBoxLayout()
         self.layout_main = QHBoxLayout()
-        # TODO connect others to this -> after Drag & Drop we can know if its a file or a folder
-        self.bids_options = get_bids_options(BidsOptions.Type.FOLDER, "preterm")
         self.populate_layouts()
 
         # setup connections
