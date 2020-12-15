@@ -38,9 +38,9 @@
       "mode": "SINGLE",
       "options":
       {
-        "type": ["fmri"],
-        "fmri": ["anatomy", "functional", "DWI"],
-        "functional": ["Rest", "Empathy", "SO Interaction", "Serial subtraction"]
+        "type": ["fmri fullterm"],
+        "fmri fullterm": ["anatomy 2", "functional 3", "DWI?!@#"],
+        "functional 3": ["Rest", "Empathy", "SO Interaction", "Serial subtraction"]
       }
     },
     "file":

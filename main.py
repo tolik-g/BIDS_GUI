@@ -1,6 +1,4 @@
 from PyQt5.QtWidgets import *
-import json
-from data.bids_options import BidsOptions
 from ui.options_chooser import OptionsChooser
 from utils.config_loader import *
 from ui.dataset_subject_chooser import DatasetSubjectChooser
@@ -23,17 +21,17 @@ class MainWindow(QMainWindow):
         self.key_file = BidsKeyFile()
         self.dataset_subject_chooser = DatasetSubjectChooser()
         self.finish_bttn = FinishButton()
-        # TODO connect others to this -> after Drag & Drop we can know if its a file or a folder
-        self.bids_options = get_bids_options(BidsOptions.Type.FILE, "fullterm")
+        self.bids_options = None
+        self.options_chooser = None
+
+        # setup connections
+        self.setup_connections()
 
         # layouts
         self.layout_origin = QVBoxLayout()
         self.layout_destination = QVBoxLayout()
         self.layout_main = QHBoxLayout()
         self.populate_layouts()
-
-        # setup connections
-        self.setup_connections()
 
         # setup central widget
         central_widget = QWidget()
@@ -55,7 +53,8 @@ class MainWindow(QMainWindow):
         # layout destination
         # -this layout is responsible for determining where
         #  the file will be moved, it's name etc.
-        self.layout_destination.addWidget(OptionsChooser(self.bids_options))
+        self.options_chooser = OptionsChooser(self.bids_options)
+        self.layout_destination.addWidget(self.options_chooser)
 
         # layout origin
         # -this layout is responsible for subject picking,
@@ -85,6 +84,19 @@ class MainWindow(QMainWindow):
         :param dataset: str, name of the dataset folder
         :return:
         """
+        # update options widget
+        if self.options_chooser:
+            index = self.layout_destination.indexOf(self.options_chooser)
+            self.options_chooser.deleteLater()
+            self.bids_options = get_bids_options(BidsOptions.Type.FOLDER,
+                                                 dataset)
+            self.options_chooser = OptionsChooser(self.bids_options)
+            self.layout_destination.insertWidget(index, self.options_chooser)
+        else:
+            self.bids_options = get_bids_options(BidsOptions.Type.FOLDER,
+                                                 dataset)
+            self.options_chooser = OptionsChooser(self.bids_options)
+
         # check that the specified dataset path exists
         path = os.path.join(get_root_path(), dataset)
         assert os.path.isdir(path), 'dataset path does not exist'

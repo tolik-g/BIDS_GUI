@@ -74,6 +74,7 @@ class OptionsChooser(QFrame):
     def on_selection_clicked(self, label, option):
         try:
             index = self.selection_stack.index(label)
+            _, _ = self.options.set_single_selected(option)
         except ValueError:
             index = 0
         # remove widgets from layout and label from selection stack
@@ -83,9 +84,11 @@ class OptionsChooser(QFrame):
         self.selection_stack = self.selection_stack[:index+1]
 
         # check if selected option is a leaf
-        if self.options.is_last(option):
+        if not self.options.get_options(option):
+        # if self.options.is_last(option):
             # handle MUL case
             if self.options.get_mode() == BidsOptions.Mode.MUL:
+                self.options.init_mul_selected(option)
                 dropdown_widget = self.generate_dropdown_widget(option)
                 self.selection_stack.append(option)
                 self.layout.addWidget(dropdown_widget)
