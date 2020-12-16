@@ -23,6 +23,9 @@ class MainWindow(QMainWindow):
         self.finish_bttn = FinishButton()
         self.bids_options = None
         self.options_chooser = None
+        self.drag_n_drop = DragDropArea()
+        self.user_file_path = ''
+        self.user_dataset = 'preterm'
 
         # setup connections
         self.setup_connections()
@@ -59,12 +62,19 @@ class MainWindow(QMainWindow):
         # layout origin
         # -this layout is responsible for subject picking,
         #  file picking, and dataset picking.
-        drag_n_drop = DragDropArea()
         self.layout_origin.addWidget(self.dataset_subject_chooser)
         self.layout_origin.addWidget(HLine())
-        self.layout_origin.addWidget(drag_n_drop)
+        self.layout_origin.addWidget(self.drag_n_drop)
         self.layout_origin.addStretch()
         self.layout_origin.addWidget(self.finish_bttn)
+
+    def change_user_path(self, v):
+        self.user_file_path = v
+        self.display_options()
+
+    def change_user_dataset(self, v):
+        self.user_dataset = v
+        self.display_options()
 
     def setup_connections(self):
         """
@@ -72,33 +82,38 @@ class MainWindow(QMainWindow):
         :return:
         """
         self.dataset_subject_chooser.dataset_changed.connect(
-            self.select_dataset)
+            self.change_user_dataset)
         datasets_ls = get_dataset_list()
         self.dataset_subject_chooser.update_dataset_list(datasets_ls)
         self.finish_bttn.clicked.connect(self.execute)
+        self.drag_n_drop.path_modified.connect(self.change_user_path)
 
-    def select_dataset(self, dataset: str):
+    def display_options(self):
         """
         change form and data configuration to comply with the new dataset
         when changed
-        :param dataset: str, name of the dataset folder
         :return:
         """
+        # check folder of file
+        if self.user_file_path != '':
+            option_type = BidsOptions.Type.FOLDER if os.path.isdir(self.user_file_path) else BidsOptions.Type.FILE
+        else:
+            option_type = BidsOptions.Type.FOLDER
         # update options widget
         if self.options_chooser:
             index = self.layout_destination.indexOf(self.options_chooser)
             self.options_chooser.deleteLater()
-            self.bids_options = get_bids_options(BidsOptions.Type.FOLDER,
-                                                 dataset)
+            self.bids_options = get_bids_options(option_type,
+                                                 self.user_dataset)
             self.options_chooser = OptionsChooser(self.bids_options)
             self.layout_destination.insertWidget(index, self.options_chooser)
         else:
-            self.bids_options = get_bids_options(BidsOptions.Type.FOLDER,
-                                                 dataset)
+            self.bids_options = get_bids_options(option_type,
+                                                 self.user_dataset)
             self.options_chooser = OptionsChooser(self.bids_options)
 
         # check that the specified dataset path exists
-        path = os.path.join(get_root_path(), dataset)
+        path = os.path.join(get_root_path(), self.user_dataset)
         assert os.path.isdir(path), 'dataset path does not exist'
 
         # check that dataset directory contains BIDS_KEY.csv file

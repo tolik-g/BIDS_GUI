@@ -1,3 +1,5 @@
+import ntpath
+
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QPixmap
 import os
@@ -28,8 +30,11 @@ class DragDropArea(QFrame):
                                  '../assets/add.png')
         icon.setPixmap(QPixmap(icon_path))
         title = QLabel('Drag & drop your file / folder here')
+        self.path_label = QLabel('')
+
         self.layout_icon.addWidget(title, 0, 1)
         self.layout_icon.addWidget(icon, 0, 2)
+        self.layout_icon.addWidget(self.path_label, 1, 1)
 
         self.layout_icon.setColumnStretch(0, 1)
         self.layout_icon.setColumnStretch(3, 1)
@@ -39,5 +44,6 @@ class DragDropArea(QFrame):
         event.ignore() if not data.hasUrls() else event.accept()
 
     def dropEvent(self, event):
-        url = event.mimeData().text()[7:]
+        url = event.mimeData().text()[8:]
         self.path_modified.emit(url)
+        self.path_label.setText(ntpath.basename(url))

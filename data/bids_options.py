@@ -1,5 +1,5 @@
 from enum import Enum
-from anytree import Node, RenderTree
+from anytree import Node
 from anytree.search import find
 
 
@@ -32,8 +32,6 @@ class BidsOptions:
         self.options = Node("type")
         self.recur_tree_init(options_, "type", self.options)
         self.selected_singles.append("type")
-        for pre, fill, node in RenderTree(self.options):
-            print("%s%s" % (pre, node.name))
 
     def get_type(self):
         return self.type
