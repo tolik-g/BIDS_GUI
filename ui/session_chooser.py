@@ -17,5 +17,5 @@ class SessionChooser(QWidget):
         self.setup_ui()
 
     def setup_ui(self):
-        self.layout.addWidget(QLabel('Session'))
+        self.layout.addWidget(QLabel('Choose Session'))
         self.layout.addWidget(self.session_dropdown)

@@ -57,7 +57,7 @@ class DropdownWidget(QWidget):
 
 
 class OptionsChooser(QFrame):
-    def __init__(self, options: BidsOptions, sessions=['session 1', 'session 2', 'session 3']):
+    def __init__(self, options: BidsOptions, sessions=['nicu', '3m', '6m', '12m', '24m', '5y', '10y', '18yHV', '18yScan'] ):
         super().__init__()
         # fields
         self.session_chooser = SessionChooser(session_ls=sessions)
@@ -68,6 +68,8 @@ class OptionsChooser(QFrame):
         self.layout = QVBoxLayout()
         wrapper_layout = QVBoxLayout()
         wrapper_layout.addWidget(self.session_chooser)
+        wrapper_layout.addWidget(HLine())
+
         wrapper_layout.addLayout(self.layout)
         wrapper_layout.addStretch()
         self.setLayout(wrapper_layout)
