@@ -9,8 +9,7 @@
       {
         "type": ["fmri"],
         "fmri": ["anatomy", "functional", "DWI"],
-        "functional": ["Rest", "Empathy", "SO Interaction", "Serial subtraction"],
-        "anatomy": ["test"]
+        "functional": ["Rest", "Empathy", "SO Interaction", "Serial subtraction"]
       }
     },
     "file":
@@ -18,9 +17,7 @@
       "mode": "MUL",
       "options":
       {
-        "type": ["test", "test2"],
-        "test": ["a", "b"],
-        "test2": ["video", "c"]
+        "type": ["video"]
       },
       "mul_options":
       {
@@ -38,9 +35,9 @@
       "mode": "SINGLE",
       "options":
       {
-        "type": ["fmri fullterm"],
-        "fmri fullterm": ["anatomy 2", "functional 3", "DWI?!@#"],
-        "functional 3": ["Rest", "Empathy", "SO Interaction", "Serial subtraction"]
+        "type": ["fmri"],
+        "fmri": ["anatomy", "functional", "DWI"],
+        "functional": ["Rest", "Empathy", "SO Interaction", "Serial subtraction"]
       }
     },
     "file":
