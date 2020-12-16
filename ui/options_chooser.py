@@ -3,6 +3,7 @@ from data.bids_options import BidsOptions
 from PyQt5.QtCore import pyqtSignal as Signal
 from ui.separation_lines import HLine
 from utils.common import create_drop_down_option
+from ui.session_chooser import SessionChooser
 
 
 class OptionWidget(QWidget):
@@ -56,18 +57,20 @@ class DropdownWidget(QWidget):
 
 
 class OptionsChooser(QFrame):
-    def __init__(self, options: BidsOptions):
+    def __init__(self, options: BidsOptions, sessions=['session 1', 'session 2', 'session 3']):
         super().__init__()
+        # fields
+        self.session_chooser = SessionChooser(session_ls=sessions)
+        self.options = options
+        self.selection_stack = []
+
         # layouts
         self.layout = QVBoxLayout()
         wrapper_layout = QVBoxLayout()
+        wrapper_layout.addWidget(self.session_chooser)
         wrapper_layout.addLayout(self.layout)
         wrapper_layout.addStretch()
         self.setLayout(wrapper_layout)
-
-        # fields
-        self.options = options
-        self.selection_stack = []
 
         self.on_selection_clicked('', 'type')
 
