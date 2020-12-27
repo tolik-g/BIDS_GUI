@@ -31,11 +31,3 @@ class BidsKeyFile:
             return ''
         row = self.key_df.loc[self.key_df['name'] == subject_name]
         return row.iloc[0]['key'] if not row.empty else ''
-
-    def find_new_key(self):
-        if not self.validate():
-            return ''
-
-        last_subject = self.key_df.iloc[-1]['key']
-        last_number = int(last_subject.split('-')[1])
-        return 'sub-' + str(last_number + 1)
