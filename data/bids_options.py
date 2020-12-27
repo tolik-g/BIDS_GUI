@@ -59,10 +59,8 @@ class BidsOptions:
 
     def set_single_selected(self, value: str):
         index_ = 0
-        is_delete = False
         if len(self.selected_singles) > 0:
             if not self.is_parent(value, self.selected_singles[-1]):
-                is_delete = True
                 for index, key in enumerate(self.selected_singles):
                     if self.is_parent(value, key):
                         index_ = index
@@ -70,7 +68,6 @@ class BidsOptions:
                 self.selected_singles = self.selected_singles[:index_ + 1]
 
         self.selected_singles.append(value)
-        return is_delete, index_ + 1
 
     def is_last(self, key: str):
         node_ = find(self.options, lambda node: node.name == key)

@@ -79,7 +79,7 @@ class OptionsChooser(QFrame):
     def on_selection_clicked(self, label, option):
         try:
             index = self.selection_stack.index(label)
-            _, _ = self.options.set_single_selected(option)
+            self.options.set_single_selected(option)
         except ValueError:
             index = 0
         # remove widgets from layout and label from selection stack
