@@ -22,6 +22,7 @@ class MainWindow(QMainWindow):
         self.dataset_subject_chooser = DatasetSubjectChooser()
         self.finish_bttn = FinishButton()
         self.bids_options = None
+        self.option_type = None
         self.options_chooser = None
         self.drag_n_drop = DragDropArea()
         self.user_file_path = ''
@@ -70,7 +71,13 @@ class MainWindow(QMainWindow):
 
     def change_user_path(self, v):
         self.user_file_path = v
-        self.display_options()
+        if os.path.isdir(v) and self.option_type == BidsOptions.Type.FILE:
+            self.display_options()
+        elif (not os.path.isdir(v)) and\
+                self.option_type == BidsOptions.Type.FOLDER:
+            self.display_options()
+        elif not self.option_type:
+            self.display_options()
 
     def change_user_dataset(self, v):
         self.user_dataset = v
@@ -95,20 +102,20 @@ class MainWindow(QMainWindow):
         :return:
         """
         # check folder of file
-        if self.user_file_path != '':
-            option_type = BidsOptions.Type.FOLDER if os.path.isdir(self.user_file_path) else BidsOptions.Type.FILE
+        if self.user_file_path:
+            self.option_type = BidsOptions.Type.FOLDER if os.path.isdir(self.user_file_path) else BidsOptions.Type.FILE
         else:
-            option_type = BidsOptions.Type.FOLDER
+            self.option_type = BidsOptions.Type.FOLDER
         # update options widget
         if self.options_chooser:
             index = self.layout_destination.indexOf(self.options_chooser)
             self.options_chooser.deleteLater()
-            self.bids_options = get_bids_options(option_type,
+            self.bids_options = get_bids_options(self.option_type,
                                                  self.user_dataset)
             self.options_chooser = OptionsChooser(self.bids_options)
             self.layout_destination.insertWidget(index, self.options_chooser)
         else:
-            self.bids_options = get_bids_options(option_type,
+            self.bids_options = get_bids_options(self.option_type,
                                                  self.user_dataset)
             self.options_chooser = OptionsChooser(self.bids_options)
 
