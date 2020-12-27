@@ -44,13 +44,17 @@ class DropdownWidget(QWidget):
         self.layout = QGridLayout()
         self.setLayout(self.layout)
 
-        self.setup_ui(first_key, pairs)
+        # fields
+        self.label = first_key
+        self.pairs = pairs
 
-    def setup_ui(self, first_key, pairs):
+        self.setup_ui(first_key)
+
+    def setup_ui(self, first_key):
         row = 0
         self.layout.addWidget(QLabel(first_key))
         row += 1
-        for pair in pairs:
+        for pair in self.pairs:
             self.layout.addWidget(pair[0], row, 0)
             self.layout.addWidget(pair[1], row, 1)
             row += 1
@@ -118,5 +122,11 @@ class OptionsChooser(QFrame):
         data['session'] = self.session_chooser.get_session()
         for i in range(self.layout.count()):
             widget = self.layout.itemAt(i).widget()
-            data[widget.label] = widget.selected_option
+            if isinstance(widget, OptionWidget):
+                data[widget.label] = widget.selected_option
+            else:
+                data_mult = {}
+                for pair in widget.pairs:
+                    data_mult[pair[0].text()] = pair[1].currentText()
+                data[widget.label] = data_mult
         return data
