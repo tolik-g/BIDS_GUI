@@ -134,8 +134,11 @@ class MainWindow(QMainWindow):
         """
         data = self.dataset_subject_chooser.get_data()
         data['subject key'] = self.key_file.subject_to_key(data['subject'])
+        options_data = self.options_chooser.get_data()
         # TODO: change this into some actual action
         for key, val in data.items():
+            print('{}: {},'.format(key, val))
+        for key, val in options_data.items():
             print('{}: {},'.format(key, val))
 
 

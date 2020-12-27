@@ -115,6 +115,7 @@ class OptionsChooser(QFrame):
 
     def get_data(self):
         data = {}
+        data['session'] = self.session_chooser.get_session()
         for i in range(self.layout.count()):
             widget = self.layout.itemAt(i).widget()
             data[widget.label] = widget.selected_option
