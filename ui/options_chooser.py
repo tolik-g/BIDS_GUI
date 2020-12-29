@@ -61,9 +61,11 @@ class DropdownWidget(QWidget):
 
 
 class OptionsChooser(QFrame):
-    def __init__(self, options: BidsOptions, sessions=['nicu', '3m', '6m', '12m', '24m', '5y', '10y', '18yHV', '18yScan'] ):
+    def __init__(self, options: BidsOptions, sessions=None):
         super().__init__()
         # fields
+        if sessions is None:
+            sessions = ['nicu', '3m', '6m', '12m', '24m', '5y', '10y', '18yHV', '18yScan']
         self.session_chooser = SessionChooser(session_ls=sessions)
         self.options = options
         self.selection_stack = []

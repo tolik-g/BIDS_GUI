@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import *
 from ui.options_chooser import OptionsChooser
+from utils.common import show_warn_message
 from utils.config_loader import *
 from ui.dataset_subject_chooser import DatasetSubjectChooser
 from ui.drag_and_drop import DragDropArea
@@ -9,6 +10,8 @@ from data.bids_key_file import BidsKeyFile
 from data.bids_options import BidsOptions
 import sys
 import os
+
+from utils.execute import execute
 
 BIDS_KEY = 'BIDS_KEYS.csv'
 
@@ -140,13 +143,22 @@ class MainWindow(QMainWindow):
         :return:
         """
         data = self.dataset_subject_chooser.get_data()
-        data['subject key'] = self.key_file.subject_to_key(data['subject'])
+        data['subject_key'] = self.key_file.subject_to_key(data['subject'])
+        data['path'] = self.user_file_path
+        data['option_type'] = self.option_type
         options_data = self.options_chooser.get_data()
-        # TODO: change this into some actual action
-        for key, val in data.items():
-            print('{}: {},'.format(key, val))
-        for key, val in options_data.items():
-            print('{}: {},'.format(key, val))
+
+        all_data = {**data, **options_data}
+        missing_data = False
+        for k in all_data:
+            if all_data[k] == '' or all_data[k] is None:
+                missing_data = True
+                break
+        if missing_data:
+            show_warn_message('Missing data', 'Please fill the entire form')
+        else:
+            execute(all_data)
+        # TODO UX - success msg for user?
 
 
 app = QApplication(sys.argv)
