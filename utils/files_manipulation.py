@@ -18,5 +18,5 @@ def dcm_to_nifti(path_in, path_out, f_name, compression=True):
         dicom2nifti.dicom_series_to_nifti(path_in, path_out_f)
         return True
     except Exception as e:
-        show_warn_message('Error', 'an error occured while converting the dicom file, please contact the lead researcher to resolve the issue')
+        show_warn_message('Error', 'an error occurred while converting the dicom file, please contact the lead researcher to resolve the issue')
         return False
