@@ -73,8 +73,3 @@ class BidsOptions:
         node_ = find(self.options, lambda node: node.name == key)
         return node_.is_leaf
 
-    def get_data(self):
-        copy_list = self.selected_singles.copy()
-        if self.mode == BidsOptions.Mode.MUL:
-            copy_list.append(self.selected_mul_options)
-        return copy_list
