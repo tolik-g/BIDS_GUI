@@ -1,0 +1,72 @@
+types of data collected from experiment:
+	- datasheets (from rating paradigms)
+		- empathy paradigm
+		- videorate
+	- EEG
+	- video (room cameras, include sensitive data)
+	- video (computer screen capture, include sensitive data)
+
+available stimulus, pipeline data:
+	- video of nature used for Nature paradigm, does not
+	include any subject sensitive data
+	- Empathy script and source files (pictures)
+
+sessions:
+	- single session
+
+paradigms:
+	- rest (I think it's a special, common and recognized type of paradigm,
+	subjects sit with minimal movement for X time)
+		- available room cameras
+		- available EEG data
+	- blink (same as rest but subjects are requested to blink throughout the
+	duration of the paradigm)
+		- available room cameras
+		- available EEG data
+	- Nature (both mother and child what a nature video)
+		- available room cameras
+		- available EEG data
+		- nature video used as stimulus
+	- Empathy (a series of pictures and a set of rating questions)
+		- available room cameras
+		- available EEG data
+		- available rating datasheets (child only)
+		- perhaps available screen capture
+	- face to face (face to face interaction between mother and child)
+	    - available room cameras
+	    - available EEG data
+	- Skype (Skype interaction between mother and child)
+		- available room cameras
+		- available EEG data
+		- available screen capture
+	- Whatsapp (mother and child interact with each other via Whatsapp web)
+		- available room cameras
+		- available EEG data
+		- available screen capture
+	- videorating (mother and child rewatch their face to face(?) interaction
+	and rate it)
+		- available room cameras
+		- available EEG data
+		- available rating datasheets
+
+maybe relevant:
+	- there are available video encoding files
+	- there are physical documents describing each experiment,
+	data includes order of paradigms and notes on unexpected
+	events (for example pressing a paradigm start key twice,
+	something not working, someone messed up the order of hats
+	and the mother and child are wearing the wrong hats etc.)
+
+unknowns:
+	- some subjects were repeated, are we going to use both
+	session's data in BIDS? if yes should we add a session layer
+	or is there a more convenient way to go about it?
+	- is it allowed to make a different (pairwise) distribution
+	of data, where every "subject" folder represent a mother-child
+	pair? (for source files only)
+	- mandatory keys for EEG's json files?
+	- mandatory keys for datasheet's json files?
+
+TODOs:
+	- given this data, figure out what should be the folder
+	structure
