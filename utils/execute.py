@@ -1,7 +1,7 @@
 import os
 
 from data.bids_options import BidsOptions
-from utils.common import show_warn_message
+from utils.common import show_message
 from utils.files_manipulation import dcm_to_nifti
 
 ROOT_PATH = 'sample_root'
@@ -34,17 +34,18 @@ def execute_fmri(data: dict, sub_path: str):
         output_filename = data['subject_key'] + '_dwi'
 
     create_dir_if_not_exist(target_dir)
-    dcm_to_nifti(path_in=data['path'], path_out=target_dir, f_name=output_filename)
+    return dcm_to_nifti(path_in=data['path'], path_out=target_dir, f_name=output_filename)
 
 
 def execute_video(data: dict, sub_path: str):
     # TODO ask ruth about all video params + naming convention + dir path
     print(os.path.join(sub_path, 'video'))
+    return True
 
 
 def validate_edge_cases(data: dict):
     if data['dataset'] == 'preterm' and data['type'] == 'fmri' and data['session'] not in ['18yHV', '18yScan']:
-        show_warn_message('preterm error', 'session 18y is the only one possible on fmri data')
+        show_message('preterm error', 'session 18y is the only one possible on fmri data')
         return False
     return True
 
@@ -54,11 +55,10 @@ def execute(data: dict):
         print('{}: {},'.format(key, val))
 
     if not validate_edge_cases(data):
-        return
+        return False, ''
 
     subject_path = get_subject_path(data)
     if data['type'] == 'fmri':
-        execute_fmri(data, subject_path)
+        return execute_fmri(data, subject_path), subject_path
     elif data['type'] == 'video':
-        execute_video(data, subject_path)
-
+        return execute_video(data, subject_path), subject_path

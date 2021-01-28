@@ -1,10 +1,20 @@
+from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QMessageBox, QLabel, QComboBox
 from data.bids_options import BidsOptions
+from PyQt5 import QtGui
 
 
-def show_warn_message(title, text):
+def msg_box_icon(msg, success: bool):
+    if success:
+        msg.setIconPixmap(QPixmap('assets/valid_big.png'))
+    else:
+        msg.setIconPixmap(QPixmap('assets/invalid_big.png'))
+
+
+def show_message(title, text, success=False):
     msg = QMessageBox()
-    msg.setIcon(QMessageBox.Warning)
+    msg.setWindowIcon(QtGui.QIcon('assets/title.png'))
+    msg_box_icon(msg, success)
     msg.setText(text)
     msg.setWindowTitle(title)
     msg.exec_()

@@ -1,6 +1,8 @@
 from PyQt5.QtWidgets import *
+from PyQt5 import QtGui
+
 from ui.options_chooser import OptionsChooser
-from utils.common import show_warn_message
+from utils.common import show_message
 from utils.config_loader import *
 from ui.dataset_subject_chooser import DatasetSubjectChooser
 from ui.drag_and_drop import DragDropArea
@@ -39,6 +41,8 @@ class MainWindow(QMainWindow):
         self.layout_destination = QVBoxLayout()
         self.layout_main = QHBoxLayout()
         self.populate_layouts()
+        self.setWindowIcon(QtGui.QIcon('assets/title.png'))
+        self.setWindowTitle('BIDS GUI')
 
         # setup central widget
         central_widget = QWidget()
@@ -155,10 +159,11 @@ class MainWindow(QMainWindow):
                 missing_data = True
                 break
         if missing_data:
-            show_warn_message('Missing data', 'Please fill the entire form')
+            show_message('Missing data', 'Please fill the entire form')
         else:
-            execute(all_data)
-        # TODO UX - success msg for user?
+            res, sub_path = execute(all_data)
+            if res:
+                show_message('Success', 'Successfully uploaded to {0}'.format(sub_path), success=True)
 
 
 app = QApplication(sys.argv)
